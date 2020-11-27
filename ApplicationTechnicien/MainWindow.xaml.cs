@@ -22,7 +22,9 @@ namespace ApplicationTechnicien
     {
         public MainWindow()
         {
+            //https://www.youtube.com/watch?v=YoZcAx_0rNM
             InitializeComponent();
+
         }
     }
 }
