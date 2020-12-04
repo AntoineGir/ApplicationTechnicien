@@ -98,7 +98,7 @@ namespace ModelLayer.Data
         {
 
             DataRow rowClient = this.theDbal.SelectById("Clients", id);
-            Client myCLient = this.theDaoClient.SelectById((int)rowClient["nom"]);
+            //Client myCLient = this.theDaoClient.SelectById((int)rowClient["Id"]);
 
 
             return new Client((int)rowClient["id"], (string)rowClient["nom"], (string)rowClient["prenom"], (int)rowClient["telephone"], (string)rowClient["mail"], (int)rowClient["credit"], (DateTime)rowClient["dateNaissance"], (string)rowClient["photo"], (int)rowClient["NbPartie"]);

@@ -18,9 +18,9 @@ namespace ModelLayer.Data
         private Dbal mydbal;
         private DaoReservation theDaoReservation;
         private DaoClient theDaoClient;
-        private DaoSalle theDaoSalle;
         private DaoUtilisateur theDaoUtilisateur;
         private DaoTheme theDaoTheme;
+        private DaoSalle theDaoSalle;
 
         public DaoReservation(Dbal dbal, DaoClient theDaoClient, DaoSalle theDaoSalle, DaoUtilisateur theDaoUtilisateur, DaoTheme theDaoTheme)
         {
@@ -86,14 +86,14 @@ namespace ModelLayer.Data
         public List<Reservation> SelectAll()
         {
             List<Reservation> listUtilisateur = new List<Reservation>();
-            DataTable myTable = this.mydbal.SelectAll("Utilisateur");
+            DataTable myTable = this.mydbal.SelectAll("Reservation");
 
             foreach (DataRow r in myTable.Rows)
             {
                 Client unCli = this.theDaoClient.SelectById((int)r["idClient"]);
                 Salle uneSalle = this.theDaoSalle.SelectById((int)r["idSalle"]);
                 Utilisateur unUtilisateur = this.theDaoUtilisateur.SelectbyId((int)r["idTechnicien"]);
-                Theme unTheme = this.theDaoTheme.SelectById((int)r["idTheme"]);
+                 Theme unTheme = this.theDaoTheme.SelectById((int)r["idTheme"]);
                 listUtilisateur.Add(new Reservation((DateTime)r["dateRes"],
                 (int)r["id"],
                 unCli,

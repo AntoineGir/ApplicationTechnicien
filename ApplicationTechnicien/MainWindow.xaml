@@ -6,7 +6,29 @@
         xmlns:local="clr-namespace:ApplicationTechnicien"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid x:Name="mainGrid" ShowGridLines="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="LblDateEntrez" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Margin="106,0,264,10"/>
+
+        <Button x:Name="BtnAjouter" Grid.Column="0" Grid.Row="4" Margin="0,26.667,10,27.333" Content="Ajouter une réservation" HorizontalAlignment="Right"/>
+        <Button x:Name="BtnRefrech" Grid.Column="1" Grid.Row="4" Margin="180,27,186,32" Content="Mise a Jour"/>
+        <DatePicker x:Name="DatePrise" SelectedDate="{Binding SelectedDate}"  Grid.Column="0" Grid.Row="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <ListBox x:Name="listReservation" ItemsSource="{Binding ListReservation}" SelectedItem="{Binding SelectedReservation}" IsSynchronizedWithCurrentItem="True" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Margin="105,0,105,0.333"/>
+        <Label x:Name="LblSalle" HorizontalAlignment="Left" Height="28" Grid.Row="2" Grid.Column="0" Content="Salle :" VerticalAlignment="Top" Width="40" Margin="80,62,0,0" Grid.RowSpan="2" />
+        <ComboBox x:Name="ListSalle" ItemsSource="{Binding ListSalle, Mode=OneTime}" SelectedItem="{Binding SalleId}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,62,0,0" Width="138">
+
+        </ComboBox>
+
     </Grid>
 </Window>
