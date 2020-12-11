@@ -127,6 +127,14 @@ namespace ModelLayer.Data
             return dataset.Tables[0];
         }
 
+        public DataTable SelectBy(string table, string fieldTestCondition)
+        {
+            string query = "SELECT * FROM " + table + " where " + fieldTestCondition;
+            DataSet dataset = RQuery(query);
+
+            return dataset.Tables[0];
+        }
+
         public DataTable SelectByField(string table, string fieldTestCondition)
         {
             string query = "SELECT * FROM " + table + " where " + fieldTestCondition;

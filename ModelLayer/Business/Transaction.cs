@@ -9,12 +9,12 @@ namespace ModelLayer.Business
     public class Transaction
     {
         private int id;
-        private char operation;
+        private string operation;
         private int montant;
         private Reservation reservation;
         private Client idClient;
 
-        public Transaction(int id, char operation, int montant, Reservation reservation, Client idClient)
+        public Transaction(int id, string operation, int montant, Reservation reservation, Client idClient)
         {
             Id = id;
             Operation = operation;
@@ -26,7 +26,7 @@ namespace ModelLayer.Business
         public Transaction(){}
 
         public int Id { get => id ; set => id = value; }
-        public char Operation { get => operation; set => operation = value; }
+        public string Operation { get => operation; set => operation = value; }
         public int Montant { get => montant; set => montant= value; }
         public Reservation Reservation { get => reservation; set => reservation = value; }
         public Client IdClient { get => idClient; set => idClient = value; }

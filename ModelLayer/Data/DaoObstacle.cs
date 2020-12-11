@@ -86,11 +86,8 @@ namespace ModelLayer.Data
 
             foreach (DataRow r in myTable.Rows)
             {
-
                 Theme myTheme = this.theDaoTheme.SelectById((int)r["id"]);
                 listObstacle.Add(new Obstacle((int)r["id"], (string)r["nom"], (string)r["photo"], (string)r["commentaire"], (int)r["difficulte"], (int)r["prix"], myTheme));
-
-
             }
             return listObstacle;
         }

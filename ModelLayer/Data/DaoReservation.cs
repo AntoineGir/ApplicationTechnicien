@@ -68,7 +68,7 @@ namespace ModelLayer.Data
 
         public Reservation SelectbyId(int id)
         {
-            DataRow rowReservation = this.mydbal.SelectById("resevation", id);
+            DataRow rowReservation = this.mydbal.SelectById("reservation", id);
             Client unCli = this.theDaoClient.SelectById((int)rowReservation["idClient"]);
             Salle uneSalle = this.theDaoSalle.SelectById((int)rowReservation["idSalle"]);
             Utilisateur unUtilisateur = this.theDaoUtilisateur.SelectbyId((int)rowReservation["idTechnicien"]);
@@ -85,7 +85,7 @@ namespace ModelLayer.Data
 
         public List<Reservation> SelectAll()
         {
-            List<Reservation> listUtilisateur = new List<Reservation>();
+            List<Reservation> listReservation = new List<Reservation>();
             DataTable myTable = this.mydbal.SelectAll("Reservation");
 
             foreach (DataRow r in myTable.Rows)
@@ -94,7 +94,7 @@ namespace ModelLayer.Data
                 Salle uneSalle = this.theDaoSalle.SelectById((int)r["idSalle"]);
                 Utilisateur unUtilisateur = this.theDaoUtilisateur.SelectbyId((int)r["idTechnicien"]);
                  Theme unTheme = this.theDaoTheme.SelectById((int)r["idTheme"]);
-                listUtilisateur.Add(new Reservation((DateTime)r["dateRes"],
+                listReservation.Add(new Reservation((DateTime)r["dateRes"],
                 (int)r["id"],
                 unCli,
                 uneSalle,
@@ -103,8 +103,38 @@ namespace ModelLayer.Data
                 (int)r["nbClient"],
                 unTheme));
             }
-            return listUtilisateur;
+            return listReservation;
         }
+
+        public List<Reservation> SelectBySalleEtDate(int ReserSalle, DateTime ReserDate)
+        {
+            
+            List<Reservation> listReservation = new List<Reservation>();
+            string Reservation = "Reservation";
+            string query = "idSalle = " + ReserSalle + " AND date(dateRes)='" +   ReserDate.ToString("yyyy-MM-dd") + "'" ;
+            DataTable myTable = this.mydbal.SelectBy(Reservation, query);
+
+            foreach (DataRow r in myTable.Rows)
+            {
+                Client unCli = this.theDaoClient.SelectById((int)r["idClient"]);
+                Salle uneSalle = this.theDaoSalle.SelectById((int)r["idSalle"]);
+                Utilisateur unUtilisateur = this.theDaoUtilisateur.SelectbyId((int)r["idTechnicien"]);
+                Theme unTheme = this.theDaoTheme.SelectById((int)r["idTheme"]);
+                listReservation.Add(new Reservation((DateTime)r["dateRes"],
+                (int)r["id"],
+                unCli,
+                uneSalle,
+                (int)r["prix"],
+                unUtilisateur,
+                (int)r["nbClient"],
+                unTheme));
+            }
+
+            return listReservation;
+            
+        }
+
+        
     }
 }
 

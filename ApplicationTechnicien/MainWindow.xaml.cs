@@ -26,6 +26,7 @@ namespace ApplicationTechnicien
         public MainWindow(DaoAvis thedaoavis, DaoClient thedaoclient, DaoObstacle thedaoobstacle, DaoPlacement_Obst thedaoplacement_Obst, DaoReservation thedaoreservation, DaoSalle thedaosalle, DaoTheme thedaotheme, DaoTransaction thedaotransaction, DaoUtilisateur thedaoutilisateur, DaoVille thedaoville)
         {
             //https://www.youtube.com/watch?v=YoZcAx_0rNM
+            
             InitializeComponent();
             mainGrid.DataContext = new ViewModel.viewModelTechnicien(thedaoavis,thedaoclient, thedaoobstacle, thedaoplacement_Obst, thedaoreservation, thedaosalle, thedaotheme, thedaotransaction, thedaoutilisateur, thedaoville);
             

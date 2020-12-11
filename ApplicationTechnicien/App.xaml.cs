@@ -31,17 +31,18 @@ namespace ApplicationTechnicien
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             mydbal = new Dbal("Escp_Game");
-            
-            theDaoAvis = new DaoAvis(mydbal, theDaoClient, theDaoTheme);
-            theDaoClient = new DaoClient(mydbal);
-            theDaoObstacle = new DaoObstacle(mydbal, theDaoTheme);
-            theDaoPlacement_Obst = new DaoPlacement_Obst(mydbal, theDaoReservation, theDaoObstacle);
             theDaoTheme = new DaoTheme(mydbal);
             theDaoVille = new DaoVille(mydbal);
+            theDaoClient = new DaoClient(mydbal);
+            theDaoAvis = new DaoAvis(mydbal, theDaoClient, theDaoTheme);
+            
+            theDaoObstacle = new DaoObstacle(mydbal, theDaoTheme);
+            
+            
             theDaoUtilisateur = new DaoUtilisateur(mydbal, theDaoVille);
             theDaoSalle = new DaoSalle(mydbal, theDaoVille, theDaoTheme);
             theDaoReservation = new DaoReservation(mydbal, theDaoClient, theDaoSalle, theDaoUtilisateur, theDaoTheme);
-
+            theDaoPlacement_Obst = new DaoPlacement_Obst(mydbal, theDaoReservation, theDaoObstacle);
             theDaoTransaction = new DaoTransaction(mydbal, theDaoClient, theDaoReservation);
             
 

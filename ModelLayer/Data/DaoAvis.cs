@@ -86,8 +86,8 @@ namespace ModelLayer.Data
             foreach (DataRow r in myTable.Rows)
             {
 
-                Client myClient = this.theDaoCLient.SelectById((int)r["id"]);
-                Theme myTheme = this.theDaoTheme.SelectById((int)r["id"]);
+                Client myClient = this.theDaoCLient.SelectById((int)r["idClient"]);
+                Theme myTheme = this.theDaoTheme.SelectById((int)r["idTheme"]);
                 listAvis.Add(new Avis((int)r["id"], myClient, (int)r["note"], (string)r["commentaire"], myTheme));
 
             }

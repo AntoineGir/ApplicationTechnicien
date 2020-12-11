@@ -62,8 +62,8 @@ namespace ModelLayer.Data
             foreach (DataRow r in rowTransaction.Rows)
             {
                 Client unCli = this.theDaoClient.SelectById((int)r["idClient"]);
-                Reservation uneReserv = this.theDaoReservation.SelectbyId((int)r["idReservation"]);
-                listTransaction.Add(new Transaction((int)r["id"], (char)r["operation"], (int)r["montant"], uneReserv, unCli));
+                Reservation uneReserv = this.theDaoReservation.SelectbyId((int)r["reservation"]);
+                listTransaction.Add(new Transaction((int)r["id"], (string)r["operation"], (int)r["montant"], uneReserv, unCli));
             }
             return listTransaction;
         }
@@ -74,7 +74,7 @@ namespace ModelLayer.Data
             Reservation uneResevation = this.theDaoReservation.SelectbyId((int)rowTransaction["reservation"]);
             Client unCli = this.theDaoClient.SelectById((int)rowTransaction["idClient"]);
             return new Transaction((int)rowTransaction["id"],
-                (char)rowTransaction["operation"],
+                (string)rowTransaction["operation"],
                 (int)rowTransaction["montant"],
                 uneResevation,
                 unCli);

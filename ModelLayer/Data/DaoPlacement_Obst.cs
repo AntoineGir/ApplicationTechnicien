@@ -36,10 +36,12 @@ namespace ModelLayer.Data
             List<Placement_Obstacle> listPlacement_obs = new List<Placement_Obstacle>();
             DataTable myTable = this.thedbal.SelectAll("Placement_obstacle");
 
+
+
             foreach (DataRow r in myTable.Rows)
             {
-                Reservation myReservation = this.theDaoReservation.SelectbyId((int)r["id"]);
-                Obstacle myObstacle = this.theDaoObstacle.SelectById((int)r["id"]);
+                Reservation myReservation = this.theDaoReservation.SelectbyId((int)r["num_placement"]);
+                Obstacle myObstacle = this.theDaoObstacle.SelectById((int)r["obstacle"]);
                 listPlacement_obs.Add(new Placement_Obstacle((int)r["num_placement"], myReservation, myObstacle));
             }
             return listPlacement_obs;

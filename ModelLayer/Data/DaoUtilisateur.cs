@@ -64,7 +64,7 @@ namespace ModelLayer.Data
                 Ville maVille = this.theDaoVille.SelectbyId((int)r["idVille"]);
                 listUtilisateur.Add(new Utilisateur(
                     (int)r["id"],
-                    (string)r["role"],
+                    (string)r["roleUser"],
                     maVille,
                     (string)r["identifiant"],
                     (string)r["mdp"]));
