@@ -23,5 +23,11 @@ namespace ApplicationTechnicien
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //Obstacle wnd = new Obstacle();
+            //wnd.Show();
+        }
     }
 }

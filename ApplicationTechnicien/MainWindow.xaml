@@ -22,7 +22,7 @@
 
         <Label x:Name="LblDateEntrez" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Margin="106,0,264,10"/>
 
-        <Button x:Name="BtnAjouter" Grid.Column="0" Grid.Row="4" Margin="0,26.667,10,27.333" Content="Ajouter une réservation" HorizontalAlignment="Right"/>
+        <Button x:Name="BtnAjouter" Grid.Column="0" Grid.Row="4" Margin="0,26.667,10,27.333" Content="Ajouter une réservation" HorizontalAlignment="Right" Click="BtnAjouter_Click"/>
         <Button x:Name="BtnRefrech" Grid.Column="1" Grid.Row="4" Margin="180,27,186,32" Content="Mise a Jour"/>
         <DatePicker x:Name="DatePrise" SelectedDate="{Binding SelectedDate}" DisplayDate="{Binding DateTime.Now}" Grid.Column="0" Grid.Row="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <ListBox x:Name="listReservation" ItemsSource="{Binding ListReservation}" SelectedItem="{Binding SelectedReservation}" IsSynchronizedWithCurrentItem="True" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Margin="105,0,105,0.333"/>

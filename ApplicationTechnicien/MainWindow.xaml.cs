@@ -31,5 +31,11 @@ namespace ApplicationTechnicien
             mainGrid.DataContext = new ViewModel.viewModelTechnicien(thedaoavis,thedaoclient, thedaoobstacle, thedaoplacement_Obst, thedaoreservation, thedaosalle, thedaotheme, thedaotransaction, thedaoutilisateur, thedaoville);
             
         }
+
+        private void BtnAjouter_Click(object sender, RoutedEventArgs e)
+        {
+            AjouterReservation wnd = new AjouterReservation();
+            wnd.Show();
+        }
     }
 }
