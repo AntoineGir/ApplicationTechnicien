@@ -36,5 +36,10 @@ namespace ModelLayer.Business
         }
         
         public Obstacle(){}
+
+        public override string ToString()
+        {
+            return this.Nom.ToString() + "--" + this.difficulte.ToString() + "--" + this.prix.ToString();
+        }
     }
 }

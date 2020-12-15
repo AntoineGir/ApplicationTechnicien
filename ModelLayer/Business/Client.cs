@@ -42,5 +42,10 @@ namespace ModelLayer.Business
         }
         
         public Client(){}
+
+        public override string ToString()
+        {
+            return this.Nom.ToString() + "--" + this.Prenom.ToString() + "--" + this.DateNaissance.ToString();
+        }
     }
 }

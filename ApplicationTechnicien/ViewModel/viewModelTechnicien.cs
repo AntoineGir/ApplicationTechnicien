@@ -112,7 +112,7 @@ namespace ApplicationTechnicien.ViewModel
         }
 
 
-        public void RefreshListeReservation( DateTime uneDate)
+        public void RefreshListeReservation(DateTime uneDate)
         {
 
             if (selectedSalle.IdLieu != null)

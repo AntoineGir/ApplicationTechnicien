@@ -120,10 +120,24 @@ namespace ModelLayer.Data
 
 
             this.theDbal.Delete(query);
+        }
+
+        public List<Client> RechercherClient(string table, string nom, string prenom)
+        {
+
+            List<Client> listClient = new List<Client>();
+            string query = "nom = '" + nom + "' AND prenom = '" + prenom + "'; ";
+            DataTable myTable = this.theDbal.SelectBy(table, query);
 
 
+            foreach(DataRow r in myTable.Rows)
+            {
+                listClient.Add(new Client((int)r["id"], (string)r["nom"],
+                    (string)r["prenom"], (int)r["telephone"], (string)r["mail"],
+                    (int)r["credit"], (DateTime)r["dateNaissance"], (string)r["photo"], (int)r["NbPartie"]));
+            }
 
-
+            return listClient;
         }
     }
 }

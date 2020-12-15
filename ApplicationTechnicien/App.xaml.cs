@@ -44,7 +44,7 @@ namespace ApplicationTechnicien
             theDaoReservation = new DaoReservation(mydbal, theDaoClient, theDaoSalle, theDaoUtilisateur, theDaoTheme);
             theDaoPlacement_Obst = new DaoPlacement_Obst(mydbal, theDaoReservation, theDaoObstacle);
             theDaoTransaction = new DaoTransaction(mydbal, theDaoClient, theDaoReservation);
-            
+
 
 
             MainWindow wnd = new MainWindow(theDaoAvis, theDaoClient, theDaoObstacle, theDaoPlacement_Obst, theDaoReservation, theDaoSalle, theDaoTheme, theDaoTransaction, theDaoUtilisateur, theDaoVille);

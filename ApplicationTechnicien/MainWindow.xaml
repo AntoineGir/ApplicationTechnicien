@@ -7,29 +7,162 @@
         xmlns:local="clr-namespace:ApplicationTechnicien"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid x:Name="mainGrid" ShowGridLines="False">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
 
-        <Label x:Name="LblDateEntrez" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Margin="106,0,264,10"/>
 
-        <Button x:Name="BtnAjouter" Grid.Column="0" Grid.Row="4" Margin="0,26.667,10,27.333" Content="Ajouter une réservation" HorizontalAlignment="Right" Click="BtnAjouter_Click"/>
-        <Button x:Name="BtnRefrech" Grid.Column="1" Grid.Row="4" Margin="180,27,186,32" Content="Mise a Jour"/>
-        <DatePicker x:Name="DatePrise" SelectedDate="{Binding SelectedDate}" DisplayDate="{Binding DateTime.Now}" Grid.Column="0" Grid.Row="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <ListBox x:Name="listReservation" ItemsSource="{Binding ListReservation}" SelectedItem="{Binding SelectedReservation}" IsSynchronizedWithCurrentItem="True" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Margin="105,0,105,0.333"/>
-        <Label x:Name="LblSalle" HorizontalAlignment="Left" Height="28" Grid.Row="2" Grid.Column="0" Content="Salle :" VerticalAlignment="Top" Width="40" Margin="80,62,0,0" Grid.RowSpan="2" />
-        <ComboBox x:Name="ListSalle" ItemsSource="{Binding ListSalle, Mode=OneTime}" SelectedItem="{Binding SelectedSalleId}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,62,0,0" Width="138"></ComboBox>
+    <TabControl>
 
-    </Grid>
+        <TabItem Grid.Row="0" Grid.Column="0" Width="150" Height="30" Header="Reservation">
+            <Grid x:Name="fenetrePrincipal" ShowGridLines="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="103*"/>
+                    <ColumnDefinition Width="28*"/>
+                    <ColumnDefinition Width="262*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="LblDateEntrez" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Margin="178,0,336,10"/>
+                <DatePicker x:Name="DatePrise" SelectedDate="{Binding SelectedDate}" Grid.Column="0" Grid.Row="1" Margin="0,26,10,27" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                <ListBox x:Name="listReservation" ItemsSource="{Binding ListReservation}" SelectedItem="{Binding SelectedReservation}" IsSynchronizedWithCurrentItem="True" Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Margin="105,0"/>
+                <Label x:Name="LblSalle" HorizontalAlignment="Left" Height="28" Grid.Row="2" Grid.Column="0" Content="Salle :" VerticalAlignment="Top" Width="40" Margin="55,38,0,0" />
+                <ComboBox x:Name="ListSalle" ItemsSource="{Binding ListSalle, Mode=OneTime}" SelectedItem="{Binding SelectedSalleId}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,38,0,10" Width="159" Height="28" RenderTransformOrigin="0.486,0.633" Grid.ColumnSpan="2"/>
+            </Grid>
+        </TabItem>
+        <TabItem Width="150" Height="30" Header="AjouterReservation">
+            <Grid  x:Name="AjouterReservation">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="76*"/>
+                    <RowDefinition Height="77*"/>
+                    <RowDefinition Height="76*"/>
+                    <RowDefinition Height="76*"/>
+                    <RowDefinition Height="76"/>
+                </Grid.RowDefinitions>
+
+                <Label x:Name="AjouterDateReservation" Content="Rentrez la date de Reservation" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" Margin="0,0,0,52"/>
+                <DatePicker x:Name="DateAjoutReservation" SelectedDate="{Binding SelectedDateAjoutReservation}" Grid.Column="1" Grid.Row="1" Margin="30,30,30,20"/>
+
+
+                <Label x:Name="AjouterVilleReservation" Content="Rentrez la ville de Reservation" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" Margin="25,0,25,50"/>
+                <ComboBox x:Name="ListVille" ItemsSource="{Binding ListVille, Mode=OneTime}" SelectedItem="{Binding SelectedVille}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,38,0,10" Width="159" Height="28" RenderTransformOrigin="0.486,0.633"/>
+
+                <Label x:Name="AjouterSalleReservation" Content="Rentrez la Salle de Reservation" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="3" Margin="25,0,25,50"/>
+                <ComboBox x:Name="ListSalleReservation" ItemsSource="{Binding ListSalle, Mode=OneTime}" SelectedItem="{Binding SelectedSalle}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,38,0,10" Width="159" Height="28" RenderTransformOrigin="0.486,0.633"/>
+
+
+
+                <Label x:Name="AjouterHeureReservation" Content="Rentrez l'heure de la Reservation" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="1" Margin="0,0,0,52" />
+                <TextBox x:Name="TxbHeureReservation" Text="{Binding HeureReservation}" Grid.Column="3" Grid.Row="1" Margin="30,30,30,21"/>
+
+                <Label x:Name="AjouterMinuteReservation" Content="Rentrez les minutes de la Reservation" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="2" Margin="0,0,0,50"/>
+                <TextBox x:Name="TxbMinuteReservation" Text="{Binding MinuteReservation}" Grid.Column="3" Grid.Row="2" Margin="30,30,30,21"/>
+
+                <Label x:Name="CasDerreur" Content="{Binding CasDerreurHorraire}" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="2" Margin="0,0,0,50" />
+
+
+                <Button x:Name="BtnAjouterHorraire" Command="{Binding ButtonAjouterHorraire}" Content="Ajouter horaire" Grid.Column="3" Grid.Row="4" Margin="32,30,32,15" Click="Button_Click"/>
+                <Button x:Name="BtnSuivant0" Command="{Binding ButtonSuivant0}" Content="Suivant" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15" Click="Button_Click"/>
+
+                <!--ajoue des clients pour une réservation -->
+                <Label x:Name="LblListeClient" Visibility="Hidden" Grid.Column="1" Grid.Row="0" Content="Liste Clients" FontSize="20" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="0,10" Height="56" />
+                <ListBox x:Name="LtbClient" Visibility="Hidden"  ItemsSource="{Binding ListClient}" SelectedItem="{Binding SelectedListClient}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3"/>
+
+                <Label x:Name="LblListeJoueur" Visibility="Hidden" Grid.Row="4" Grid.Column="0" Content="Nom :" FontSize="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,28,76,24"/>
+                <TextBox x:Name="TxBChercherNomClients" Visibility="Hidden" Text="{Binding ChercherClientsNom}" Grid.Column="0" Grid.Row="4" HorizontalContentAlignment="Center" Margin="36,30,0,24"/>
+
+                <Label x:Name="LblPrenom" Visibility="Hidden" Grid.Row="4" Grid.Column="1" Content="Prenom :" FontSize="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,28,178,26"/>
+                <TextBox x:Name="TxBChercherPrenomClients" Visibility="Hidden" Text="{Binding ChercherClientsPrenom}" Grid.Column="1" Grid.Row="4" HorizontalContentAlignment="Center" Margin="47,30,99,24"/>
+
+
+                <Button x:Name="BtnRecherche" Visibility="Hidden" Command="{Binding BtnRechercher}" Content="Rechercher" Grid.Column="1" Grid.Row="4" Margin="149,30,0,24"/>
+
+                <Button x:Name="BtnAjouterClientsDansJoueur" Visibility="Hidden" Command="{Binding BtnAjouterClientsDansJoueur}"  Content="Ajouter" Grid.Row="2" Grid.Column="2" Margin="18,30,18,24" />
+                <Button x:Name="BtnSupprimerJoueur" Visibility="Hidden" Command="{Binding ButtonSupprimerJoueur}" Content="Supprimer" Grid.Column="2" Grid.Row="4" Margin="18,30,18,24"/>
+
+                <Label x:Name="LblJoueur" Visibility="Hidden" Grid.Column="3 " Grid.Row="0" Content="Liste Joueur" FontSize="20" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="0,10" Height="56" />
+                <ListBox x:Name="LtBJoueur" Visibility="Hidden" SelectedItem="{Binding SelectedJoueur}" ItemsSource="{Binding ListJoueur}" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3"/>
+
+
+                <Button x:Name="BtnSuivant1" Visibility="Hidden" Command="{Binding ButtonSuivant}" Content="Suivant" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15" Click="Button_Click"/>
+
+
+                <!--suite ajouterReservation 2-->
+                <Label x:Name="LblListeObstacle" Visibility="Hidden" Grid.Column="1" Grid.Row="0" Content="Liste Obstacles" FontSize="20" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
+                <ListBox x:Name="LtbListeObstacle" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Margin="10,0,0,0">
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ImageObstacle}" Height="100"/>
+                            <StackPanel Margin="10">
+                                <TextBox Text="{Binding NomObstacle}" FontWeight="Bold"/>
+                                <TextBox Text="{Binding DifficulteObstacle}"/>
+                                <TextBox Text="{Binding PrixObstacle}"/>
+                                <TextBox Text="{Binding CommentaireObstacle}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox>
+                <TextBox x:Name="TxbObstacle" Visibility="Hidden" Grid.Column="0" Grid.Row="4" HorizontalContentAlignment="Center" Margin="10,25,152,33"/>
+                <Button x:Name="BtnObstacleRecherche" Visibility="Hidden"  Content="Rechercher" Grid.Column="1" Grid.Row="4" Margin="181,25,0,33"/>
+
+                <Button x:Name="BtnObstacleAjouter" Visibility="Hidden"  Content="Ajouter" Grid.Row="2" Grid.Column="2" Margin="18,30,18,24"/>
+
+                <Label x:Name="LblObstacleAjouter" Visibility="Hidden" Grid.Column="3 " Grid.Row="0" Content="Obstacle Ajouter" FontSize="20" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
+                <ListBox x:Name="LtbObstacleAjouter" Visibility="Hidden" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3">
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Nom}" Height="100"/>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="{Binding Difficulte}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Prix}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox>
+
+                <Button x:Name="BtnObstacleSupprimer" Visibility="Hidden" Content="Supprimer" Grid.Column="2" Grid.Row="4" Margin="18,30,18,24"/>
+                <Button x:Name="BtnObstacleSuivant" Visibility="Hidden" Content="Suivant" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15"/>
+
+                <!--
+        
+        
+        https://wpf.2000things.com/tag/scrollviewer/
+        
+        
+        -->
+            </Grid>
+        </TabItem>
+        <TabItem Grid.Row="0" Grid.Column="0" Width="150" Height="30" Header="Clients">
+            <Grid x:Name="mainGrid" ShowGridLines="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="TextNom" Grid.Row="1" Grid.Column="0" Text="test" Margin="95,21,10,10" ></TextBox>
+                <Button x:Name="BtnRechercher" Grid.Column="0" Grid.Row="3" Content="Rechercher" Margin="48,14,48,14"/>
+                <ListBox x:Name="listClient" ItemsSource="{Binding ListClient}" SelectedItem="{Binding SelectedClient}" IsSynchronizedWithCurrentItem="True" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Margin="105,0,105,0.333"/>
+            </Grid>
+        </TabItem>
+
+
+    </TabControl>
+
 
     <!-- modfier la date https://help.syncfusion.com/wpf/datepicker/sfdateselector-->
 </Window>
