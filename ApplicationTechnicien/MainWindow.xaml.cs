@@ -32,7 +32,62 @@ namespace ApplicationTechnicien
             AjouterReservation.DataContext = new ViewModel.viewModelAjouterReservation(thedaoclient, thedaoobstacle,thedaoplacement_Obst,thedaoreservation,thedaosalle,thedaotheme,thedaoutilisateur,thedaoville);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnSuivantVersObstacle_Click(object sender, RoutedEventArgs e)
+        {
+            AjouterDateReservation.Visibility = Visibility.Hidden;
+            DateAjoutReservation.Visibility = Visibility.Hidden;
+            AjouterVilleReservation.Visibility = Visibility.Hidden;
+            ListVille.Visibility = Visibility.Hidden;
+            AjouterSalleReservation.Visibility = Visibility.Hidden;
+            ListSalleReservation.Visibility = Visibility.Hidden;
+            AjouterHeureReservation.Visibility = Visibility.Hidden;
+            TxbMinuteReservation.Visibility = Visibility.Hidden;
+            CasDerreur.Visibility = Visibility.Hidden;
+            BtnAjouterHorraire.Visibility = Visibility.Hidden;
+            BtnSuivantVersObstacle.Visibility = Visibility.Hidden;
+
+            LblListeObstacle.Visibility = Visibility.Visible;
+            LtbListeObstacle.Visibility = Visibility.Visible;
+            TxbObstacle.Visibility = Visibility.Visible; 
+            BtnObstacleRecherche.Visibility = Visibility.Visible;
+            BtnObstacleAjouter.Visibility = Visibility.Visible;
+            LblObstacleAjouter.Visibility = Visibility.Visible;
+            LtbObstacleAjouter.Visibility = Visibility.Visible;
+            BtnObstacleSupprimer.Visibility = Visibility.Visible;
+            BtnObstacleSuivant.Visibility = Visibility.Visible;
+        }
+
+        private void BtnObstacleSuivant_Click(object sender, RoutedEventArgs e)
+        {
+            LblListeObstacle.Visibility = Visibility.Hidden;
+            LtbListeObstacle.Visibility = Visibility.Hidden;
+            TxbObstacle.Visibility = Visibility.Hidden;
+            BtnObstacleRecherche.Visibility = Visibility.Hidden;
+            BtnObstacleAjouter.Visibility = Visibility.Hidden;
+            LblObstacleAjouter.Visibility = Visibility.Hidden;
+            LtbObstacleAjouter.Visibility = Visibility.Hidden;
+            BtnObstacleSupprimer.Visibility = Visibility.Hidden;
+            BtnObstacleSuivant.Visibility = Visibility.Hidden;
+            BtnAjouterHorraire.Visibility = Visibility.Hidden;
+            CasDerreur.Visibility = Visibility.Hidden;
+
+
+            LblListeClient.Visibility = Visibility.Visible;
+            LtbClient.Visibility = Visibility.Visible;
+            LblListeJoueur.Visibility = Visibility.Visible;
+            TxBChercherNomClients.Visibility = Visibility.Visible;
+            LblPrenom.Visibility = Visibility.Visible;
+            TxBChercherPrenomClients.Visibility = Visibility.Visible;
+            BtnRecherche.Visibility = Visibility.Visible;
+            BtnAjouterClientsDansJoueur.Visibility = Visibility.Visible;
+            BtnSupprimerJoueur.Visibility = Visibility.Visible;
+            LblJoueur.Visibility = Visibility.Visible;
+            LtBJoueur.Visibility = Visibility.Visible;
+            BtnSuivant1.Visibility = Visibility.Visible;
+            BtnRetourVersObstacle.Visibility = Visibility.Visible;
+        }
+
+        private void BtnRetourVersObstacle_Click(object sender, RoutedEventArgs e)
         {
             LblListeClient.Visibility = Visibility.Hidden;
             LtbClient.Visibility = Visibility.Hidden;
@@ -46,18 +101,19 @@ namespace ApplicationTechnicien
             LblJoueur.Visibility = Visibility.Hidden;
             LtBJoueur.Visibility = Visibility.Hidden;
             BtnSuivant1.Visibility = Visibility.Hidden;
+            BtnRetourVersObstacle.Visibility = Visibility.Hidden;
+
 
             LblListeObstacle.Visibility = Visibility.Visible;
             LtbListeObstacle.Visibility = Visibility.Visible;
-            TxbObstacle.Visibility = Visibility.Visible; 
+            TxbObstacle.Visibility = Visibility.Visible;
             BtnObstacleRecherche.Visibility = Visibility.Visible;
             BtnObstacleAjouter.Visibility = Visibility.Visible;
             LblObstacleAjouter.Visibility = Visibility.Visible;
             LtbObstacleAjouter.Visibility = Visibility.Visible;
             BtnObstacleSupprimer.Visibility = Visibility.Visible;
             BtnObstacleSuivant.Visibility = Visibility.Visible;
-
-
+            CasDerreur.Visibility = Visibility.Visible;
         }
     }
 }
