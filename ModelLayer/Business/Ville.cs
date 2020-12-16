@@ -24,5 +24,10 @@ namespace ModelLayer.Business
         
         public Ville(){}
 
+        public override string ToString()
+        {
+            return this.Nom.ToString();
+        }
+
     }
 }

@@ -31,6 +31,7 @@ namespace ApplicationTechnicien.ViewModel
 
         private DateTime selectedDate = new DateTime();
         private Salle selectedSalle = new Salle();
+        private Ville selectedVille = new Ville();
         private Reservation selectedReservation = new Reservation();
 
         private ObservableCollection<Avis> listAvis;
@@ -81,7 +82,7 @@ namespace ApplicationTechnicien.ViewModel
             ListAvis = new ObservableCollection<Avis>(thedaoavis.SelectAll());
         }
 
-        public Salle SelectedSalleId
+        public Salle SelectedSalle
         {
             get => selectedSalle;
             set
@@ -89,12 +90,43 @@ namespace ApplicationTechnicien.ViewModel
                 if (selectedSalle != value)
                 {
                     selectedSalle = value;
-                    OnPropertyChanged("SelectedSalleId");
+
+
+                    OnPropertyChanged("SelectedSalle");
                     OnPropertyChanged("ListReservation");
                     RefreshListeReservation(SelectedDate);
+
+
                 }
             }
         }
+
+
+        public Ville SelectedVille
+        {
+            get => selectedVille;
+            set
+            {
+                if (selectedVille != value)
+                {
+                    selectedVille = value;
+
+                    List<Salle> uneListeSalle;
+                    ListSalle.Clear();
+
+                    uneListeSalle = vmDaoSalle.ListeDesSalle(SelectedVille);
+
+                    foreach (Salle r in uneListeSalle)
+                    {
+                        ListSalle.Add(r);
+                    }
+
+                    OnPropertyChanged("SelectedVille");
+                    OnPropertyChanged("SelectedSalle");
+                }
+            }
+        }
+
 
         public DateTime SelectedDate
         {
@@ -103,10 +135,10 @@ namespace ApplicationTechnicien.ViewModel
             {
                 if (selectedDate != value)
                 {
+
                     selectedDate = value;
                     OnPropertyChanged("SelectedDate");
                     RefreshListeReservation(SelectedDate);
-
                 }
             }
         }
@@ -115,14 +147,22 @@ namespace ApplicationTechnicien.ViewModel
         public void RefreshListeReservation(DateTime uneDate)
         {
 
-            if (selectedSalle.IdLieu != null)
+            if (selectedSalle == null)
             {
-                List<Reservation> listReservationRefresh = vmDaoReservation.SelectBySalleEtDate(selectedSalle.Id, uneDate.Date);
-                //ObservableCollection <Reservation> lalistReservation = new ObservableCollection<Reservation>(vmDaoReservation.SelectBySalleEtDate(ReserSalle, ReserDate));
-                listReservation.Clear();
-                foreach (Reservation r in listReservationRefresh)
+                listSalle.Clear();
+            }
+
+            else
+            {
+                if (selectedSalle.IdLieu != null)
                 {
-                    listReservation.Add(r);
+                    List<Reservation> listReservationRefresh = vmDaoReservation.SelectBySalleEtDate(selectedSalle.Id, uneDate.Date);
+                    //ObservableCollection <Reservation> lalistReservation = new ObservableCollection<Reservation>(vmDaoReservation.SelectBySalleEtDate(ReserSalle, ReserDate));
+                    listReservation.Clear();
+                    foreach (Reservation r in listReservationRefresh)
+                    {
+                        listReservation.Add(r);
+                    }
                 }
             }
 

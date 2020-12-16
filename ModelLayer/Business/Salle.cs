@@ -27,7 +27,7 @@ namespace ModelLayer.Business
         
        public override string ToString()
         {
-            return this.IdLieu.Nom + "--" + this.id.ToString();
+            return this.id.ToString();
         }
     }
 }

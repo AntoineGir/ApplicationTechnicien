@@ -32,7 +32,7 @@ namespace ModelLayer.Data
                 + uneSalle.Id + ","
                 + uneSalle.IdLieu.Id + ","
                 + uneSalle.IdTheme.Id + ")";
-                
+
             this.mydbal.Insert(query);
 
         }
@@ -42,7 +42,7 @@ namespace ModelLayer.Data
             string query = "Salle Set id= " + uneSalle.Id
                 + ", idLieu = " + uneSalle.IdLieu.Id
                 + ", idTheme = " + uneSalle.IdTheme.Id;
-              
+
             this.mydbal.Update(query);
         }
 
@@ -72,6 +72,25 @@ namespace ModelLayer.Data
             Ville maVille = this.theDaoVille.SelectbyId((int)rowSalle["idLieu"]);
             Theme monTheme = this.theDaoTheme.SelectById((int)rowSalle["idTheme"]);
             return new Salle((int)rowSalle["id"], maVille, monTheme);
+        }
+
+        public List<Salle> ListeDesSalle(Ville uneVille)
+        {
+            List<Salle> listSalle = new List<Salle>();
+            string query = "idLieu = " + uneVille.Id;
+
+            DataTable myTable = this.mydbal.SelectBy("Salle", query);
+
+            foreach (DataRow r in myTable.Rows)
+            {
+                Ville unVille = this.theDaoVille.SelectbyId((int)r["idLieu"]);
+                Theme unTheme = this.theDaoTheme.SelectById((int)r["IdTheme"]);
+
+                listSalle.Add(new Salle((int)r["Id"], uneVille, unTheme));
+
+            }
+
+            return listSalle;
         }
     }
 }
