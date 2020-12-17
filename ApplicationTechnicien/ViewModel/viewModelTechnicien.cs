@@ -29,12 +29,25 @@ namespace ApplicationTechnicien.ViewModel
         //private IComman ;
         //private IComman ;
 
+        private ICommand buttonSupprimerJoueur;
+        private ICommand btnAjouterClientsDansJoueur;
+        private ICommand btnRechercher;
+
+        private string heureReservation;
+        private string minuteReservation;
         private DateTime selectedDate = new DateTime();
         private Salle selectedSalle = new Salle();
         private Ville selectedVille = new Ville();
         private Reservation selectedReservation = new Reservation();
+        private string chercherClientsNom;
+        private string chercherClientsPrenom;
+        private Client selectedJoueur = new Client();
+        private Client selectedListClient = new Client();
+
+        
 
         private ObservableCollection<Avis> listAvis;
+        private ObservableCollection<Client> listJoueur = new ObservableCollection<Client>();
         private ObservableCollection<Client> listClient;
         private ObservableCollection<Obstacle> listObstacle;
         private ObservableCollection<Placement_Obstacle> listPlacement_Obstacle;
@@ -46,6 +59,7 @@ namespace ApplicationTechnicien.ViewModel
         private ObservableCollection<Ville> listVille;
 
         public ObservableCollection<Reservation> ListReservation { get => listReservation; set => listReservation = value; }
+        public ObservableCollection<Client> ListJoueur { get => listJoueur; set => listJoueur = value; }
         public ObservableCollection<Salle> ListSalle { get => listSalle; set => listSalle = value; }
         public ObservableCollection<Avis> ListAvis { get => listAvis; set => listAvis = value; }
         public ObservableCollection<Client> ListClient { get => listClient; set => listClient = value; }
@@ -55,8 +69,6 @@ namespace ApplicationTechnicien.ViewModel
         public ObservableCollection<Transaction> ListTransaction { get => listTransaction; set => listTransaction = value; }
         public ObservableCollection<Utilisateur> ListUtilisateur { get => listUtilisateur; set => listUtilisateur = value; }
         public ObservableCollection<Ville> ListVille { get => listVille; set => listVille = value; }
-
-
         public viewModelTechnicien(DaoAvis thedaoavis, DaoClient thedaoclient, DaoObstacle thedaoobstacle, DaoPlacement_Obst thedaoplacement_obst, DaoReservation thedaoreservation, DaoSalle thedaosalle, DaoTheme thedaotheme, DaoTransaction thedaotransaction, DaoUtilisateur thedaoutilisateur, DaoVille thedaoville)
         {
             vmDaoAvis = thedaoavis;
@@ -90,17 +102,12 @@ namespace ApplicationTechnicien.ViewModel
                 if (selectedSalle != value)
                 {
                     selectedSalle = value;
-
-
                     OnPropertyChanged("SelectedSalle");
                     OnPropertyChanged("ListReservation");
                     RefreshListeReservation(SelectedDate);
-
-
                 }
             }
         }
-
 
         public Ville SelectedVille
         {
@@ -120,13 +127,11 @@ namespace ApplicationTechnicien.ViewModel
                     {
                         ListSalle.Add(r);
                     }
-
                     OnPropertyChanged("SelectedVille");
                     OnPropertyChanged("SelectedSalle");
                 }
             }
         }
-
 
         public DateTime SelectedDate
         {
@@ -142,7 +147,6 @@ namespace ApplicationTechnicien.ViewModel
                 }
             }
         }
-
 
         public void RefreshListeReservation(DateTime uneDate)
         {
@@ -168,22 +172,223 @@ namespace ApplicationTechnicien.ViewModel
 
         }
 
-
-
-        /*
-        public DateTime SelectedDate
+        public string HeureReservation
         {
-            get => selectedDate;
+            get => heureReservation;
+
             set
             {
-                if(selectedDate != value)
+                if (heureReservation != value)
                 {
-                    selectedDate = value;
-                    OnPropertyChanged("SelectedReservation");
+                    heureReservation = value;
+                    OnPropertyChanged("HeureReservation");
                 }
             }
-        }*/
+        }
+
+        public string MinuteReservation
+        {
+            get => minuteReservation;
+
+            set
+            {
+                if (minuteReservation != value)
+                {
+                    minuteReservation = value;
+                    OnPropertyChanged("MinuteReservation");
+                }
+            }
+        }
+
+        public Reservation RecupererHoraireReservation()
+        {
+            Reservation uneReservation = new Reservation();
+            if (selectedDate != null && selectedVille != null && selectedSalle != null && this.HeureReservation != "" && this.MinuteReservation != "")
+            {
 
 
+                int year = selectedDate.Year;
+                int mouth = selectedDate.Month;
+                int days = selectedDate.Day;
+
+                int heure = int.Parse(heureReservation);
+                int minute = int.Parse(MinuteReservation);
+
+                DateTime dateRes = new DateTime(year, mouth, days, heure, minute, 0);
+
+                List<Reservation> AllReservation = new List<Reservation>();
+                int total = AllReservation.Count() + 1;
+
+                //uneReservation = Reservation(dateRes, total+1, null, SelectedSalle, 0, null, 0, null);
+
+
+                uneReservation.DateRes = dateRes;
+                uneReservation.Id = total;
+                uneReservation.IdSalle = selectedSalle;
+
+            }
+
+            return uneReservation;
+        }
+
+        // suite
+        public ICommand BtnRechercher
+        {
+            get
+            {
+                if (this.btnRechercher == null)
+                {
+                    this.btnRechercher = new RelayCommand(() => Rechercher(), () => true);
+                }
+                return this.btnRechercher;
+            }
+        }
+
+        public string ChercherClientsNom
+        {
+            get => chercherClientsNom;
+
+            set
+            {
+                if (chercherClientsNom != value)
+                {
+                    chercherClientsNom = value;
+                    OnPropertyChanged("ChercherClientsNom");
+                }
+            }
+        }
+
+        public string NomObstacle
+        {
+            //get => nomObstacle;
+            set
+            {
+                if (chercherClientsNom != value)
+                {
+
+                }
+            }
+        }
+
+        public string ChercherClientsPrenom
+        {
+            get => chercherClientsPrenom;
+            set
+            {
+                if (chercherClientsPrenom != value)
+                {
+                    chercherClientsPrenom = value;
+                    OnPropertyChanged("ChercherClientsPrenom");
+                }
+            }
+        }
+
+        public void Rechercher()
+        {
+            if (this.ChercherClientsNom != "")
+            {
+                List<Client> listClientRefresh = vmDaoClient.RechercherClient("Clients", ChercherClientsNom, ChercherClientsPrenom);
+                listClient.Clear();
+                foreach (Client r in listClientRefresh)
+                {
+                    listClient.Add(r);
+                }
+            }
+            else ClientRefreshList();
+
+        }
+
+        public void ClientRefreshList()
+        {
+            ObservableCollection<Client> listClientRefreshAll = new ObservableCollection<Client>(vmDaoClient.SelectAll());
+            listClient.Clear();
+            foreach (Client r in listClientRefreshAll)
+            {
+                listClient.Add(r);
+            }
+        }
+        public ICommand BtnAjouterClientsDansJoueur
+        {
+            get
+            {
+                if (btnAjouterClientsDansJoueur == null)
+                {
+                    this.btnAjouterClientsDansJoueur = new RelayCommand(() => AjouterClientsDansJoueur(), () => true);
+                }
+                return this.btnAjouterClientsDansJoueur;
+            }
+        }
+        public void AjouterClientsDansJoueur()
+        {
+
+            /*if (listJoueur.Count() <= 6 && listJoueur !=null)
+            {
+                        listJoueur.Add(SelectedListClient); 
+            }
+            IEnumerable<Client> NewClients = listJoueur.Distinct();
+
+            foreach (Client r in NewClients)
+            {
+                listJoueur.Add(r);
+            }*/
+            bool naPasDeuxFoisUnClientDansLaListeDesJoueurs = false;
+            if (listJoueur.Count() <= 6)
+            {
+                foreach (Client r in listJoueur)
+                {
+                    if(r == selectedListClient)
+                    {
+                        naPasDeuxFoisUnClientDansLaListeDesJoueurs = true;
+                    }
+                }
+                if (naPasDeuxFoisUnClientDansLaListeDesJoueurs == false)
+                {
+                    listJoueur.Add(selectedListClient);
+                }
+            }
+        }
+
+        public ICommand ButtonSupprimerJoueur
+        {
+            get
+            {
+                if (buttonSupprimerJoueur == null)
+                {
+                    this.buttonSupprimerJoueur = new RelayCommand(() => SupprimerJoueur(), () => true);
+                }
+                return this.buttonSupprimerJoueur;
+            }
+        }
+
+        public void SupprimerJoueur()
+        {
+            listJoueur.Remove(SelectedJoueur);
+        }
+
+        public Client SelectedJoueur
+        {
+            get => selectedJoueur;
+            set
+            {
+                if (selectedJoueur != value)
+                {
+                    selectedJoueur = value;
+                    OnPropertyChanged("SelectedJoueur");
+                }
+            }
+        }
+
+        public Client SelectedListClient
+        {
+            get => selectedListClient;
+            set
+            {
+                if (selectedListClient != value)
+                {
+                    selectedListClient = value;
+                    OnPropertyChanged("SelectedListClient");
+                }
+            }
+        }
     }
 }

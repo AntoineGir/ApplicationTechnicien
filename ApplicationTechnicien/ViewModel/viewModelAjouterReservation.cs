@@ -70,7 +70,6 @@ namespace ApplicationTechnicien.ViewModel
             }
         }
 
-
         public string ChercherClientsNom
         {
             get => chercherClientsNom;
@@ -90,7 +89,7 @@ namespace ApplicationTechnicien.ViewModel
             get => nomObstacle;
             set
             {
-                if(chercherClientsNom != value)
+                if (chercherClientsNom != value)
                 {
 
                 }
@@ -165,12 +164,11 @@ namespace ApplicationTechnicien.ViewModel
             }
         }
 
-
         public ICommand ButtonSupprimerJoueur
         {
             get
             {
-                if(buttonSupprimerJoueur == null)
+                if (buttonSupprimerJoueur == null)
                 {
                     this.buttonSupprimerJoueur = new RelayCommand(() => SupprimerJoueur(), () => true);
                 }
@@ -182,7 +180,6 @@ namespace ApplicationTechnicien.ViewModel
         {
             listJoueur.Remove(SelectedJoueur);
         }
-
 
         public Client SelectedJoueur
         {
@@ -197,7 +194,6 @@ namespace ApplicationTechnicien.ViewModel
             }
         }
 
-
         public Client SelectedListClient
         {
             get => selectedListClient;
@@ -210,9 +206,6 @@ namespace ApplicationTechnicien.ViewModel
                 }
             }
         }
-
-
-
 
         public viewModelAjouterReservation(DaoClient theDaoClient, DaoObstacle theDaoObstacle, DaoPlacement_Obst theDaoPlacement_obs, DaoReservation theDaoReservation, DaoSalle theDaoSalle, DaoTheme theDaoTheme, DaoUtilisateur theDaoUtlisateur, DaoVille theDaoVille)
         {

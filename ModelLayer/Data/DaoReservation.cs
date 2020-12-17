@@ -108,7 +108,6 @@ namespace ModelLayer.Data
 
         public List<Reservation> SelectBySalleEtDate(int ReserSalle, DateTime ReserDate)
         {
-            
             List<Reservation> listReservation = new List<Reservation>();
             string Reservation = "Reservation";
             string query = "idSalle = " + ReserSalle + " AND date(dateRes)='" +   ReserDate.ToString("yyyy-MM-dd") + "'" ;
@@ -129,12 +128,25 @@ namespace ModelLayer.Data
                 (int)r["nbClient"],
                 unTheme));
             }
-
             return listReservation;
-            
         }
 
-        
+        public void InsertNewReservation()
+        {/*
+            string query = "Reservation (dateRes, id, idClient, idSalle, prix, idtechnicien, nbClient, idTheme) VALUES ('"
+                + uneReservation.DateRes + "',"
+                + uneReservation.Id + ","
+                + uneReservation.IdClient.Id + ","
+                + uneReservation.IdSalle.Id + ","
+                + uneReservation.Prix + ","
+                + uneReservation.IdTechnicien + ","
+                + uneReservation.NbClient + ","
+                + uneReservation.IdTheme + ")";
+
+            this.mydbal.Insert(query);*/
+
+        }
+
     }
 }
 

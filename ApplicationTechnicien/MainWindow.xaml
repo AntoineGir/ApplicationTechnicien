@@ -56,7 +56,7 @@
                 </Grid.RowDefinitions>
 
                 <Label x:Name="AjouterDateReservation" Content="Rentrez la date de Reservation" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" Margin="0,0,0,52"/>
-                <DatePicker x:Name="DateAjoutReservation" SelectedDate="{Binding SelectedDateAjoutReservation}" Grid.Column="1" Grid.Row="1" Margin="30,30,30,20"/>
+                <DatePicker x:Name="DateAjoutReservation" SelectedDate="{Binding SelectedDate}" Grid.Column="1" Grid.Row="1" Margin="30,30,30,20"/>
 
 
                 <Label x:Name="AjouterVilleReservation" Content="Rentrez la ville de Reservation" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" Margin="25,0,25,50"/>
@@ -74,10 +74,35 @@
                 <TextBox x:Name="TxbMinuteReservation" Text="{Binding MinuteReservation}" Grid.Column="3" Grid.Row="2" Margin="30,30,30,21"/>
 
                 <Label x:Name="CasDerreur" Content="{Binding CasDerreurHorraire}" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="2" Margin="0,0,0,50" />
-
+                
 
                 <Button x:Name="BtnAjouterHorraire" Command="{Binding ButtonAjouterHorraire}" Content="Ajouter horaire" Grid.Column="3" Grid.Row="4" Margin="32,30,32,15"/>
                 <Button x:Name="BtnSuivantVersObstacle" Command="{Binding ButtonSuivant0}" Content="Suivant" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15" Click="BtnSuivantVersObstacle_Click"/>
+                <Button x:Name="BtnRetourVersHorraire" Visibility="Hidden" Command="{Binding ButtonRetourVersHorraire}" Content="Retour" Grid.Column="4" Grid.Row="3" Margin="32,30,32,15" Click="BtnRetourVersHorraire_Click" />
+
+               
+
+
+                <!--Affichage pour l'ajoue des Obstacles-->
+                <Label x:Name="LblListeObstacle" Visibility="Hidden" Grid.Column="1" Grid.Row="0" Content="Liste Obstacles" FontSize="20" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
+                <ListBox x:Name="LtbListeObstacle" ItemsSource="{Binding ListObstacle }" SelectedItem="{Binding SelectedObstacle}" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Margin="10,0,0,0"/>
+                <TextBox x:Name="TxbObstacle" Visibility="Hidden" Grid.Column="0" Grid.Row="4" HorizontalContentAlignment="Center" Margin="10,25,152,33"/>
+
+                <Button x:Name="BtnObstacleAjouter" Visibility="Hidden"  Content="Ajouter" Grid.Row="2" Grid.Column="2" Margin="18,30,18,24"/>
+
+                <Label x:Name="LblObstacleAjouter" Visibility="Hidden" Grid.Column="3 " Grid.Row="0" Content="Obstacle Ajouter" FontSize="20" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
+                <ListBox x:Name="LtbObstacleAjouter" ItemsSource="{Binding ListObstacleAjouter}" SelectedItem="{Binding SelectedObstacleAjouter}" Visibility="Hidden" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3"/>
+
+                <Button x:Name="BtnObstacleSupprimer" Visibility="Hidden" Content="Supprimer" Grid.Column="2" Grid.Row="4" Margin="18,30,18,24"/>
+                <Button x:Name="BtnObstacleSuivant" Visibility="Hidden" Content="Suivant" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15" Click="BtnObstacleSuivant_Click"/>
+
+
+                <Label x:Name="LblObstacle" Visibility="Hidden" Grid.Row="4" Grid.Column="1" Content="Obstacle :" FontSize="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,28,178,26"/>
+                <TextBox x:Name="TxbRechercheObstacle" Visibility="Hidden" Text="{Binding ChercherObstacle}" Grid.Column="1" Grid.Row="4" HorizontalContentAlignment="Center" Margin="47,30,99,24"/>
+
+
+                <Button x:Name="BtnRechercheObstacle" Visibility="Hidden" Command="{Binding BtnRechercherObstacle}" Content="Rechercher" Grid.Column="1" Grid.Row="4" Margin="149,30,0,24"/>
+
 
                 <!--ajoue des clients pour une réservation -->
                 <Button x:Name="BtnRetourVersObstacle" Visibility="Hidden" Command="{Binding ButtonRetourVersObstacle}" Content="Retour" Grid.Column="4" Grid.Row="3" Margin="32,30,32,15" Click="BtnRetourVersObstacle_Click"/>
@@ -100,22 +125,7 @@
                 <ListBox x:Name="LtBJoueur" Visibility="Hidden" SelectedItem="{Binding SelectedJoueur}" ItemsSource="{Binding ListJoueur}" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3"/>
 
 
-                <Button x:Name="BtnSuivant1" Visibility="Hidden" Command="{Binding ButtonSuivant}" Content="Suivant" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15"/>
-
-
-                <!--suite ajouterReservation 2-->
-                <Label x:Name="LblListeObstacle" Visibility="Hidden" Grid.Column="1" Grid.Row="0" Content="Liste Obstacles" FontSize="20" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
-                <ListBox x:Name="LtbListeObstacle" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Margin="10,0,0,0"/>
-                <TextBox x:Name="TxbObstacle" Visibility="Hidden" Grid.Column="0" Grid.Row="4" HorizontalContentAlignment="Center" Margin="10,25,152,33"/>
-                <Button x:Name="BtnObstacleRecherche" Visibility="Hidden"  Content="Rechercher" Grid.Column="1" Grid.Row="4" Margin="181,25,0,33"/>
-
-                <Button x:Name="BtnObstacleAjouter" Visibility="Hidden"  Content="Ajouter" Grid.Row="2" Grid.Column="2" Margin="18,30,18,24"/>
-
-                <Label x:Name="LblObstacleAjouter" Visibility="Hidden" Grid.Column="3 " Grid.Row="0" Content="Obstacle Ajouter" FontSize="20" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
-                <ListBox x:Name="LtbObstacleAjouter" Visibility="Hidden" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3"/>
-
-                <Button x:Name="BtnObstacleSupprimer" Visibility="Hidden" Content="Supprimer" Grid.Column="2" Grid.Row="4" Margin="18,30,18,24"/>
-                <Button x:Name="BtnObstacleSuivant" Visibility="Hidden" Content="Suivant" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15" Click="BtnObstacleSuivant_Click"/>
+                <Button x:Name="BtnSuivant1" Visibility="Hidden" Command="{Binding ButtonSuivant}" Content="Terminer" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15"/>
 
                 <!--
         
