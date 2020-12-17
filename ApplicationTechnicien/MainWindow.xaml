@@ -125,7 +125,7 @@
                 <ListBox x:Name="LtBJoueur" Visibility="Hidden" SelectedItem="{Binding SelectedJoueur}" ItemsSource="{Binding ListJoueur}" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3"/>
 
 
-                <Button x:Name="BtnSuivant1" Visibility="Hidden" Command="{Binding ButtonSuivant}" Content="Terminer" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15"/>
+                <Button x:Name="BtnSuivant1" Visibility="Hidden" Command="{Binding ButtonTerminer}" Content="Terminer" Grid.Column="4" Grid.Row="4" Margin="32,30,32,15"/>
 
                 <!--
         

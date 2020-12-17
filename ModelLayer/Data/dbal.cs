@@ -16,7 +16,7 @@ namespace ModelLayer.Data
 
         //Constructor
         /// pour la bdd au lycée mettre le mots de passe : 5MichelAnnecy sinon ne pas mettre de mdp
-        public Dbal(string database, string uid = "root", string password = "", string server = "localhost")
+        public Dbal(string database, string uid = "root", string password = "5MichelAnnecy", string server = "localhost")
         {
             Initialize(database, uid, password, server);
         }

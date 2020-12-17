@@ -24,11 +24,7 @@ namespace ApplicationTechnicien.ViewModel
         private DaoUtilisateur vmDaoUtilisateur;
         private DaoVille vmDaoVille;
 
-        //private ICommand ;
-        //private IComman ;
-        //private IComman ;
-        //private IComman ;
-
+        private ICommand buttonTerminer;
         private ICommand buttonSupprimerJoueur;
         private ICommand btnAjouterClientsDansJoueur;
         private ICommand btnRechercher;
@@ -320,17 +316,6 @@ namespace ApplicationTechnicien.ViewModel
         }
         public void AjouterClientsDansJoueur()
         {
-
-            /*if (listJoueur.Count() <= 6 && listJoueur !=null)
-            {
-                        listJoueur.Add(SelectedListClient); 
-            }
-            IEnumerable<Client> NewClients = listJoueur.Distinct();
-
-            foreach (Client r in NewClients)
-            {
-                listJoueur.Add(r);
-            }*/
             bool naPasDeuxFoisUnClientDansLaListeDesJoueurs = false;
             if (listJoueur.Count() <= 6)
             {
@@ -389,6 +374,34 @@ namespace ApplicationTechnicien.ViewModel
                     OnPropertyChanged("SelectedListClient");
                 }
             }
+        }
+
+        public ICommand ButtonTerminer
+        {
+            get
+            {
+                if (buttonTerminer == null)
+                {
+                    this.buttonTerminer = new RelayCommand(() => AjoutNouvelleReservation(), () => true);
+                }
+                return this.buttonTerminer;
+            }
+        }
+
+        public void AjoutNouvelleReservation()
+        {
+            RecupererHoraireReservation().IdClient = 1;
+            Utilisateur unUtilisateur = new Utilisateur(1, "Technicien", selectedVille, "12", "12");
+            //recupère le total de la list des obstacle;
+            RecupererHoraireReservation().Prix = 1;
+            RecupererHoraireReservation().IdTechnicien = unUtilisateur  ;
+            RecupererHoraireReservation().NbClient = listJoueur.Count() + 1;
+            //ajouter un combobox pour le theme;
+            RecupererHoraireReservation().IdTheme = null;
+
+
+            vmDaoReservation.Insert(RecupererHoraireReservation());
+            
         }
     }
 }
