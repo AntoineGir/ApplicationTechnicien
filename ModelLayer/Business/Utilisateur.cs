@@ -32,5 +32,10 @@ namespace ModelLayer.Business
         public string Mdp { get => mdp; set => mdp = value; }
 
         public Utilisateur() { }
+
+        public override string ToString()
+        {
+            return this.Identifiant.ToString() + "--" + this.role.ToString();
+        }
     }
 }

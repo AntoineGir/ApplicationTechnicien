@@ -16,7 +16,7 @@ namespace ModelLayer.Data
 
         //Constructor
         /// pour la bdd au lycée mettre le mots de passe : 5MichelAnnecy sinon ne pas mettre de mdp
-        public Dbal(string database, string uid = "root", string password = "5MichelAnnecy", string server = "localhost")
+        public Dbal(string database, string uid = "root", string password = "", string server = "localhost")
         {
             Initialize(database, uid, password, server);
         }
@@ -26,9 +26,11 @@ namespace ModelLayer.Data
         {
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+                // a la fin de la ligne 31 après ; mettre (convert zero datetime = True)
+            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + "; convert zero datetime = True";
 
             connection = new MySqlConnection(connectionString);
+
         }
 
         //open connection to database
@@ -150,6 +152,14 @@ namespace ModelLayer.Data
             DataSet dataset = RQuery(query);
 
             return dataset.Tables[0].Rows[0];
+        }
+
+        public DataRow OrderBy(string table, string query)
+        {
+            query = "SELECT * FROM " + table + " Order by " + query + " desc limit 1";
+            DataSet dataSet = RQuery(query);
+
+            return dataSet.Tables[0].Rows[0];
         }
     }
 }

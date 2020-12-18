@@ -39,7 +39,7 @@ namespace ModelLayer.Business
 
         public override string ToString()
         {
-            return this.Nom.ToString() + "--" + this.difficulte.ToString() + "--" + this.prix.ToString();
+            return this.Nom.ToString() + "--" + this.difficulte.ToString() + "--" + this.prix.ToString() + "--" + this.commentaire.ToString();
         }
     }
 }

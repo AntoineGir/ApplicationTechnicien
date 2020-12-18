@@ -118,5 +118,35 @@ namespace ModelLayer.Data
             string query = "Obstacle where id = " + unObstacle.Id + ";";
             this.mydbal.Delete(query);
         }
+
+        public List<Obstacle> RechercherObstacle(string nom)
+        {
+            List<Obstacle> listObstacle = new List<Obstacle>();
+            string query = "nom ='" + nom + "';";
+            DataTable myTable = this.mydbal.SelectBy("Obstacle", query);
+
+            foreach(DataRow r in myTable.Rows)
+            {
+                Theme myTheme = this.theDaoTheme.SelectById((int)r["id"]);
+                listObstacle.Add(new Obstacle((int)r["id"], (string)r["nom"], (string)r["photo"], (string)r["commentaire"], (int)r["difficulte"], (int)r["prix"], myTheme));
+
+            }
+            return listObstacle;
+        }
+
+        public List<Obstacle> listeDesObstacleParRapportauTheme(Theme unTheme)
+        {
+            List<Obstacle> listObstalce = new List<Obstacle>();
+            string query = "theme = " + unTheme.Id;
+
+            DataTable myTable = this.mydbal.SelectBy("Obstacle", query);
+
+            foreach(DataRow r in myTable.Rows)
+            {
+                Theme myTheme = this.theDaoTheme.SelectById((int)r["id"]);
+                listObstalce.Add(new Obstacle((int)r["id"], (string)r["nom"], (string)r["photo"], (string)r["commentaire"], (int)r["difficulte"], (int)r["prix"], myTheme));
+            }
+            return listObstalce;
+        }
     }
 }

@@ -82,5 +82,45 @@ namespace ModelLayer.Data
                 (string)rowUtilisateur["identifiant"],
                 (string)rowUtilisateur["mdp"]);
         }
+
+        public List<Utilisateur> SelectAllAvecIdSalle(Ville uneVille)
+        {
+            List<Utilisateur> listUtilisateur = new List<Utilisateur>();
+            string query = "idVille =" + uneVille.Id;
+
+            DataTable myTable = this.mydbal.SelectBy("Utilisateur", query);
+
+            foreach (DataRow r in myTable.Rows)
+            {
+                Ville maVille = this.theDaoVille.SelectbyId((int)r["idVille"]);
+                listUtilisateur.Add(new Utilisateur(
+                    (int)r["id"],
+                    (string)r["roleUser"],
+                    maVille,
+                    (string)r["identifiant"],
+                    (string)r["mdp"]));
+            }
+            return listUtilisateur;
+        }
+
+        public List<Utilisateur> listeDesUtilsateurs(Ville uneVille)
+        {
+            List<Utilisateur> ListUtilisateur = new List<Utilisateur>();
+            string query = "idVille =" + uneVille.Id;
+
+            DataTable myTable = this.mydbal.SelectBy("Utilisateur", query);
+
+            foreach(DataRow r in myTable.Rows)
+            {
+                Ville maVille = this.theDaoVille.SelectbyId((int)r["idVille"]);
+                ListUtilisateur.Add(new Utilisateur(
+                    (int)r["id"],
+                    (string)r["roleUser"],
+                    maVille,
+                    (string)r["identifiant"],
+                    (string)r["mdp"]));
+            }
+            return ListUtilisateur;
+        }
     }
 }

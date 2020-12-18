@@ -22,10 +22,10 @@ namespace ModelLayer.Data
             this.theDaoObstacle = theDaoObstacle;
         }
 
-        public void Insert(Placement_Obstacle thePlacementObs, Reservation theReservation, Obstacle theObstacle)
+        public void Insert(int thePlacementObs, Reservation theReservation, Obstacle theObstacle)
         {
             string query = "Placement_obstacle (num_placement, reservation, obstacle) VALUES ("
-                + thePlacementObs.Num_placement + ","
+                + thePlacementObs + ","
                 + theReservation.Id + ","
                 + theObstacle.Id + ")";
             this.thedbal.Insert(query);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
 
 using ModelLayer.Business;
 using ModelLayer.Data;
@@ -28,19 +29,32 @@ namespace ApplicationTechnicien.ViewModel
         private ICommand buttonSupprimerJoueur;
         private ICommand btnAjouterClientsDansJoueur;
         private ICommand btnRechercher;
+        private ICommand btnRechercherObstacle;
+        private ICommand buttonSupprimerReservation;
+        private ICommand buttonMiseAJourReservation;
+        private ICommand buttonAjouterObstacle;
+        private ICommand buttonSupprimerObstacle;
+        private ICommand btnRechercheClientPourInformation;
 
         private string heureReservation;
         private string minuteReservation;
         private DateTime selectedDate = new DateTime();
         private Salle selectedSalle = new Salle();
         private Ville selectedVille = new Ville();
+        private Utilisateur selectedTechnicien = new Utilisateur();
         private Reservation selectedReservation = new Reservation();
         private string chercherClientsNom;
         private string chercherClientsPrenom;
         private Client selectedJoueur = new Client();
         private Client selectedListClient = new Client();
+        private Theme selectedTheme = new Theme();
+        private Obstacle selectedObstacle = new Obstacle();
+        private Obstacle selectedObstacleAjouter = new Obstacle();
+        public string chercherObstacle;
+        public string txtPrenomClientPourInformation;
+        public string txtNomClientPourInformation;
 
-        
+
 
         private ObservableCollection<Avis> listAvis;
         private ObservableCollection<Client> listJoueur = new ObservableCollection<Client>();
@@ -53,7 +67,11 @@ namespace ApplicationTechnicien.ViewModel
         private ObservableCollection<Transaction> listTransaction;
         private ObservableCollection<Utilisateur> listUtilisateur;
         private ObservableCollection<Ville> listVille;
+        private ObservableCollection<Utilisateur> listTechnicien;
+        private ObservableCollection<Obstacle> listObstacleAjouter = new ObservableCollection<Obstacle>();
+        private ObservableCollection<Client> listClientPourInformation;
 
+        public ObservableCollection<Client> ListClientPourInformation { get => listClientPourInformation; set => listClientPourInformation = value; }
         public ObservableCollection<Reservation> ListReservation { get => listReservation; set => listReservation = value; }
         public ObservableCollection<Client> ListJoueur { get => listJoueur; set => listJoueur = value; }
         public ObservableCollection<Salle> ListSalle { get => listSalle; set => listSalle = value; }
@@ -65,6 +83,9 @@ namespace ApplicationTechnicien.ViewModel
         public ObservableCollection<Transaction> ListTransaction { get => listTransaction; set => listTransaction = value; }
         public ObservableCollection<Utilisateur> ListUtilisateur { get => listUtilisateur; set => listUtilisateur = value; }
         public ObservableCollection<Ville> ListVille { get => listVille; set => listVille = value; }
+        public ObservableCollection<Utilisateur> ListTechnicien { get => listTechnicien; set => listTechnicien = value; }
+        public ObservableCollection<Obstacle> ListObstacleAjouter { get => listObstacleAjouter; set => listObstacleAjouter = value; }
+
         public viewModelTechnicien(DaoAvis thedaoavis, DaoClient thedaoclient, DaoObstacle thedaoobstacle, DaoPlacement_Obst thedaoplacement_obst, DaoReservation thedaoreservation, DaoSalle thedaosalle, DaoTheme thedaotheme, DaoTransaction thedaotransaction, DaoUtilisateur thedaoutilisateur, DaoVille thedaoville)
         {
             vmDaoAvis = thedaoavis;
@@ -88,6 +109,8 @@ namespace ApplicationTechnicien.ViewModel
             ListVille = new ObservableCollection<Ville>(thedaoville.SelectAll());
             ListClient = new ObservableCollection<Client>(thedaoclient.SelectAll());
             ListAvis = new ObservableCollection<Avis>(thedaoavis.SelectAll());
+            ListTechnicien = new ObservableCollection<Utilisateur>(thedaoutilisateur.SelectAll());
+            ListClientPourInformation = new ObservableCollection<Client>(thedaoclient.SelectAll());
         }
 
         public Salle SelectedSalle
@@ -100,7 +123,7 @@ namespace ApplicationTechnicien.ViewModel
                     selectedSalle = value;
                     OnPropertyChanged("SelectedSalle");
                     OnPropertyChanged("ListReservation");
-                    RefreshListeReservation(SelectedDate);
+                    RefreshListeReservation();
                 }
             }
         }
@@ -115,16 +138,27 @@ namespace ApplicationTechnicien.ViewModel
                     selectedVille = value;
 
                     List<Salle> uneListeSalle;
-                    ListSalle.Clear();
-
+                    listSalle.Clear();
                     uneListeSalle = vmDaoSalle.ListeDesSalle(SelectedVille);
-
                     foreach (Salle r in uneListeSalle)
                     {
-                        ListSalle.Add(r);
+                        listSalle.Add(r);
                     }
+
+
+                    List<Utilisateur> uneListeutilisateur;
+
+                    listTechnicien.Clear();
+                    uneListeutilisateur = vmDaoUtilisateur.listeDesUtilsateurs(SelectedVille);
+                    foreach (Utilisateur r in uneListeutilisateur)
+                    {
+                        listTechnicien.Add(r);
+                    }
+
+
                     OnPropertyChanged("SelectedVille");
                     OnPropertyChanged("SelectedSalle");
+                    OnPropertyChanged("SelectedTechnicien");
                 }
             }
         }
@@ -139,12 +173,25 @@ namespace ApplicationTechnicien.ViewModel
 
                     selectedDate = value;
                     OnPropertyChanged("SelectedDate");
-                    RefreshListeReservation(SelectedDate);
+                    RefreshListeReservation();
                 }
             }
         }
 
-        public void RefreshListeReservation(DateTime uneDate)
+        public Utilisateur SelectedTechnicien
+        {
+            get => selectedTechnicien;
+            set
+            {
+                if (selectedTechnicien != value)
+                {
+                    selectedTechnicien = value;
+                    OnPropertyChanged("SelectedTechnicien");
+                }
+            }
+        }
+
+        public void RefreshListeReservation()
         {
 
             if (selectedSalle == null)
@@ -156,7 +203,7 @@ namespace ApplicationTechnicien.ViewModel
             {
                 if (selectedSalle.IdLieu != null)
                 {
-                    List<Reservation> listReservationRefresh = vmDaoReservation.SelectBySalleEtDate(selectedSalle.Id, uneDate.Date);
+                    List<Reservation> listReservationRefresh = vmDaoReservation.SelectBySalleEtDate(selectedSalle.Id, selectedDate.Date);
                     //ObservableCollection <Reservation> lalistReservation = new ObservableCollection<Reservation>(vmDaoReservation.SelectBySalleEtDate(ReserSalle, ReserDate));
                     listReservation.Clear();
                     foreach (Reservation r in listReservationRefresh)
@@ -182,6 +229,72 @@ namespace ApplicationTechnicien.ViewModel
             }
         }
 
+        public string TxtNomClientPourInformation
+        {
+            get => txtNomClientPourInformation;
+            set
+            {
+                if(txtNomClientPourInformation != value)
+                {
+                    txtNomClientPourInformation = value;
+                    OnPropertyChanged("TxtNomClientPourInformation");
+                }
+            }
+        }
+
+        public string TxtPrenomClientPourInformation
+        {
+            get => txtPrenomClientPourInformation;
+            set
+            {
+                if(txtPrenomClientPourInformation != value)
+                {
+                    txtPrenomClientPourInformation = value;
+                    OnPropertyChanged("TxtPrenomClientPourInformation");
+                }
+            }
+        }
+
+        public ICommand BtnRechercheClientPourInformation
+        {
+            get
+            {
+                if (this.btnRechercheClientPourInformation == null)
+                {
+                    this.btnRechercheClientPourInformation = new RelayCommand(() => RechercheClientPourInformation(), () => true);
+                }
+                return this.btnRechercheClientPourInformation;
+            }
+            
+        }
+
+        public void RechercheClientPourInformation()
+        {
+            if (this.chercherClientsNom != "")
+            { 
+            List<Client> listClientRefresh = vmDaoClient.RechercherClient("Clients", txtNomClientPourInformation, txtPrenomClientPourInformation);
+            listClient.Clear();
+            foreach (Client r in listClientRefresh)
+            {
+                listClient.Add(r);
+            }
+        }
+            else ClientRefreshList();
+    }
+
+        public string ChercherObstacle
+        {
+            get => chercherObstacle;
+            set
+            {
+                if (chercherObstacle != value)
+                {
+                    chercherObstacle = value;
+                    OnPropertyChanged("ChercherObstacle");
+                }
+            }
+        }
+
         public string MinuteReservation
         {
             get => minuteReservation;
@@ -196,35 +309,17 @@ namespace ApplicationTechnicien.ViewModel
             }
         }
 
-        public Reservation RecupererHoraireReservation()
+
+        public ICommand ButtonMiseAJourReservation
         {
-            Reservation uneReservation = new Reservation();
-            if (selectedDate != null && selectedVille != null && selectedSalle != null && this.HeureReservation != "" && this.MinuteReservation != "")
+            get
             {
-
-
-                int year = selectedDate.Year;
-                int mouth = selectedDate.Month;
-                int days = selectedDate.Day;
-
-                int heure = int.Parse(heureReservation);
-                int minute = int.Parse(MinuteReservation);
-
-                DateTime dateRes = new DateTime(year, mouth, days, heure, minute, 0);
-
-                List<Reservation> AllReservation = new List<Reservation>();
-                int total = AllReservation.Count() + 1;
-
-                //uneReservation = Reservation(dateRes, total+1, null, SelectedSalle, 0, null, 0, null);
-
-
-                uneReservation.DateRes = dateRes;
-                uneReservation.Id = total;
-                uneReservation.IdSalle = selectedSalle;
-
+                if (this.buttonMiseAJourReservation == null)
+                {
+                    this.buttonMiseAJourReservation = new RelayCommand(() => MiseAjourReservation(), () => true);
+                }
+                return this.buttonMiseAJourReservation;
             }
-
-            return uneReservation;
         }
 
         // suite
@@ -237,6 +332,86 @@ namespace ApplicationTechnicien.ViewModel
                     this.btnRechercher = new RelayCommand(() => Rechercher(), () => true);
                 }
                 return this.btnRechercher;
+            }
+        }
+
+        public ICommand ButtonSupprimerReservation
+        {
+            get
+            {
+                if (this.buttonSupprimerReservation == null)
+                {
+                    this.buttonSupprimerReservation = new RelayCommand(() => SupprimerReservation(), () => true);
+                }
+                return this.buttonSupprimerReservation;
+            }
+        }
+
+        public ICommand BtnRechercherObstacle
+        {
+            get
+            {
+                if (this.btnRechercherObstacle == null)
+                {
+                    this.btnRechercherObstacle = new RelayCommand(() => RechercherObstacle(), () => true);
+                }
+                return this.btnRechercherObstacle;
+            }
+        }
+
+        public void RechercherObstacle()
+        {
+            if (this.ChercherObstacle != "")
+            {
+                List<Obstacle> LalistObstacle = vmDaoObstacle.RechercherObstacle(chercherObstacle);
+                listObstacle.Clear();
+                foreach (Obstacle r in LalistObstacle)
+                {
+                    listObstacle.Add(r);
+                }
+            }
+            else ObstacleRefreshList();
+        }
+
+        public void ObstacleRefreshList()
+        {
+            ObservableCollection<Obstacle> listObstacleRefresh = new ObservableCollection<Obstacle>(vmDaoObstacle.SelectAll());
+            listObstacle.Clear();
+            foreach (Obstacle r in listObstacleRefresh)
+            {
+                listObstacle.Add(r);
+
+            }
+        }
+
+        public void MiseAjourReservation()
+        {
+            List<Reservation> toutesLesReservation = new List<Reservation>();
+            listReservation.Clear();
+
+            toutesLesReservation = vmDaoReservation.SelectAll();
+
+            foreach (Reservation r in toutesLesReservation)
+            {
+                listReservation.Add(r);
+            }
+        }
+
+        public void SupprimerReservation()
+        {
+            if (selectedReservation != null)
+            {
+                Reservation uneReservation = new Reservation();
+                List<Reservation> lesReservation = new List<Reservation>();
+                uneReservation = selectedReservation;
+                vmDaoReservation.Delete(uneReservation);
+                lesReservation = vmDaoReservation.SelectAll();
+                ListReservation.Clear();
+
+                foreach (Reservation r in lesReservation)
+                {
+                    ListReservation.Add(r);
+                }
             }
         }
 
@@ -303,6 +478,18 @@ namespace ApplicationTechnicien.ViewModel
                 listClient.Add(r);
             }
         }
+
+
+        public void ClientRefreshListPourInformation()
+        {
+            ObservableCollection<Client> listClientRefreshAll = new ObservableCollection<Client>(vmDaoClient.SelectAll());
+            listClientPourInformation.Clear();
+            foreach (Client r in listClientRefreshAll)
+            {
+                listClientPourInformation.Add(r);
+            }
+        }
+
         public ICommand BtnAjouterClientsDansJoueur
         {
             get
@@ -314,6 +501,7 @@ namespace ApplicationTechnicien.ViewModel
                 return this.btnAjouterClientsDansJoueur;
             }
         }
+
         public void AjouterClientsDansJoueur()
         {
             bool naPasDeuxFoisUnClientDansLaListeDesJoueurs = false;
@@ -321,7 +509,7 @@ namespace ApplicationTechnicien.ViewModel
             {
                 foreach (Client r in listJoueur)
                 {
-                    if(r == selectedListClient)
+                    if (r == selectedListClient)
                     {
                         naPasDeuxFoisUnClientDansLaListeDesJoueurs = true;
                     }
@@ -376,6 +564,29 @@ namespace ApplicationTechnicien.ViewModel
             }
         }
 
+        public Theme SelectedTheme
+        {
+            get => selectedTheme;
+            set
+            {
+                if (selectedTheme != value)
+                {
+                    selectedTheme = value;
+
+                    List<Obstacle> uneListeObstacle;
+                    listObstacle.Clear();
+                    uneListeObstacle = vmDaoObstacle.listeDesObstacleParRapportauTheme(selectedTheme);
+
+                    foreach(Obstacle r in uneListeObstacle)
+                    {
+                        listObstacle.Add(r);
+                    }
+
+                    OnPropertyChanged("SelectedTheme");
+                }
+            }
+        }
+
         public ICommand ButtonTerminer
         {
             get
@@ -388,20 +599,156 @@ namespace ApplicationTechnicien.ViewModel
             }
         }
 
+
+
+        public ICommand ButtonAjouterObstacle
+        {
+            get
+            {
+                if (buttonAjouterObstacle == null)
+                {
+                    this.buttonAjouterObstacle = new RelayCommand(() => AjouterNouveauObstacle(), () => true);
+                }
+                return this.buttonAjouterObstacle;
+            }
+        }
+
+        public Obstacle SelectedObstacle
+        {
+            get => selectedObstacle;
+            set
+            {
+                if (selectedObstacle != value)
+                {
+                    selectedObstacle = value;
+                    OnPropertyChanged("SelectedObstacle");
+                }
+            }
+        }
+
+        public Obstacle SelectedObstacleAjouter
+        {
+            get => selectedObstacleAjouter;
+            set
+            {
+                if (selectedObstacleAjouter != value)
+                {
+                    selectedObstacleAjouter = value;
+                    OnPropertyChanged("SelectedObstacleAjouter");
+                }
+            }
+        }
+
+        public void AjouterNouveauObstacle()
+        {
+            // SelectedObstacle
+            //    SelectedObstacleAjouter
+            //listTechnicien
+
+            bool naPasDeuxFoisUnObstacleDansLaListeDesObstalceAjouter = false;
+            if (listObstacleAjouter.Count() <= 12)
+            {
+                foreach (Obstacle r in listObstacleAjouter)
+                {
+                    if (r == selectedObstacle)
+                    {
+                        naPasDeuxFoisUnObstacleDansLaListeDesObstalceAjouter = true;
+                    }
+                }
+                if (naPasDeuxFoisUnObstacleDansLaListeDesObstalceAjouter == false)
+                {
+                    listObstacleAjouter.Add(selectedObstacle);
+                }
+            }
+        }
+
+        public ICommand ButtonSupprimerObstacle
+        {
+            get
+            {
+                if (buttonSupprimerObstacle == null)
+                {
+                    this.buttonSupprimerObstacle = new RelayCommand(() => SupprimerObstacle(), () => true);
+
+                }
+                return this.buttonSupprimerObstacle;
+            }
+        }
+
+        public void SupprimerObstacle()
+        {
+            listObstacleAjouter.Remove(SelectedObstacleAjouter);
+        }
+
         public void AjoutNouvelleReservation()
         {
-            RecupererHoraireReservation().IdClient = 1;
-            Utilisateur unUtilisateur = new Utilisateur(1, "Technicien", selectedVille, "12", "12");
-            //recupère le total de la list des obstacle;
-            RecupererHoraireReservation().Prix = 1;
-            RecupererHoraireReservation().IdTechnicien = unUtilisateur  ;
-            RecupererHoraireReservation().NbClient = listJoueur.Count() + 1;
-            //ajouter un combobox pour le theme;
-            RecupererHoraireReservation().IdTheme = null;
+            Reservation LaFinalReservation = new Reservation();
+            List<Reservation> laListDeToutesLesReservation = new List<Reservation>();
+            laListDeToutesLesReservation = vmDaoReservation.SelectAll();
 
+            if (selectedDate != null && selectedVille != null && selectedSalle != null && this.HeureReservation != "" && this.MinuteReservation != ""
+                && selectedTheme != null && listJoueur != null && selectedTechnicien != null
+                )
+            {
+                //recuperation date, heure, minute et convertisser en datetime
+                int year = selectedDate.Year;
+                int mouth = selectedDate.Month;
+                int days = selectedDate.Day;
 
-            vmDaoReservation.Insert(RecupererHoraireReservation());
-            
+                int heure = int.Parse(heureReservation);
+                int minute = int.Parse(MinuteReservation);
+
+                DateTime dateRes = new DateTime(year, mouth, days, heure, minute, 0);
+                LaFinalReservation.DateRes = dateRes;
+
+                //recupere l'id Reservation
+
+                //id salle
+                LaFinalReservation.IdSalle = selectedSalle;
+
+                //prix
+                int total = 0;
+                foreach (Obstacle r in listObstacleAjouter)
+                {
+                    total = r.Prix + total;
+                }
+
+                LaFinalReservation.Prix = total;
+
+                //nb client
+                LaFinalReservation.NbClient = listJoueur.Count();
+
+                //id client
+                LaFinalReservation.IdClient = selectedJoueur;
+
+                //id technicien
+                LaFinalReservation.IdTechnicien = selectedTechnicien;
+
+                //ajouter un combobox pour le theme;
+                LaFinalReservation.IdTheme = selectedTheme;
+
+                foreach (Client r in ListJoueur)
+                {
+                    laListDeToutesLesReservation = vmDaoReservation.SelectAll();
+                    LaFinalReservation.Id = vmDaoReservation.lePlusGrandIntDansLaTableReservation(vmDaoReservation.SelectAll());
+                    LaFinalReservation.IdClient = r;
+                    vmDaoReservation.Insert(LaFinalReservation);
+                }
+
+                int i = 1;
+                foreach (Obstacle r in listObstacleAjouter)
+                {
+
+                    vmDaoObstacle_Obst.Insert(i, LaFinalReservation, r);
+                    i++;
+                }
+                MessageBox.Show("Vous Avez Ajouter la Reservation");
+            }
+            else
+            {
+                MessageBox.Show("Vous Avez Oubliez de rentrer des informations");
+            }
         }
+
     }
 }

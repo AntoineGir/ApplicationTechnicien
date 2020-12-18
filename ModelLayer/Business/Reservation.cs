@@ -43,7 +43,7 @@ namespace ModelLayer.Business
 
         public override string ToString()
         {
-            return this.dateRes.ToString() + "--" + this.nbClient.ToString();
+            return this.dateRes.ToString() + " --  " + this.nbClient.ToString() + "nbPersonne -- " + this.prix.ToString() +"€";
         }
 
 

@@ -39,9 +39,9 @@ namespace ModelLayer.Data
                 + uneReservation.IdClient.Id + ","
                 + uneReservation.IdSalle.Id + ","
                 + uneReservation.Prix + ","
-                + uneReservation.IdTechnicien + ","
+                + uneReservation.IdTechnicien.Id + ","
                 + uneReservation.NbClient + ","
-                + uneReservation.IdTheme + ")";
+                + uneReservation.IdTheme.Id + ")";
 
             this.mydbal.Insert(query);
 
@@ -93,7 +93,7 @@ namespace ModelLayer.Data
                 Client unCli = this.theDaoClient.SelectById((int)r["idClient"]);
                 Salle uneSalle = this.theDaoSalle.SelectById((int)r["idSalle"]);
                 Utilisateur unUtilisateur = this.theDaoUtilisateur.SelectbyId((int)r["idTechnicien"]);
-                 Theme unTheme = this.theDaoTheme.SelectById((int)r["idTheme"]);
+                Theme unTheme = this.theDaoTheme.SelectById((int)r["idTheme"]);
                 listReservation.Add(new Reservation((DateTime)r["dateRes"],
                 (int)r["id"],
                 unCli,
@@ -110,7 +110,7 @@ namespace ModelLayer.Data
         {
             List<Reservation> listReservation = new List<Reservation>();
             string Reservation = "Reservation";
-            string query = "idSalle = " + ReserSalle + " AND date(dateRes)='" +   ReserDate.ToString("yyyy-MM-dd") + "'" ;
+            string query = "idSalle = " + ReserSalle + " AND date(dateRes)='" + ReserDate.ToString("yyyy-MM-dd") + " order by id desc limit'";
             DataTable myTable = this.mydbal.SelectBy(Reservation, query);
 
             foreach (DataRow r in myTable.Rows)
@@ -131,22 +131,14 @@ namespace ModelLayer.Data
             return listReservation;
         }
 
-        public void InsertNewReservation()
-        {/*
-            string query = "Reservation (dateRes, id, idClient, idSalle, prix, idtechnicien, nbClient, idTheme) VALUES ('"
-                + uneReservation.DateRes + "',"
-                + uneReservation.Id + ","
-                + uneReservation.IdClient.Id + ","
-                + uneReservation.IdSalle.Id + ","
-                + uneReservation.Prix + ","
-                + uneReservation.IdTechnicien + ","
-                + uneReservation.NbClient + ","
-                + uneReservation.IdTheme + ")";
+        public int lePlusGrandIntDansLaTableReservation(List<Reservation> ToutesLesReservation)
+        {
+            DataRow myTable = this.mydbal.OrderBy("Reservation", "id");
 
-            this.mydbal.Insert(query);*/
-
+            return (int)myTable["id"] + 1;
         }
 
-    }
-}
 
+    }
+
+}

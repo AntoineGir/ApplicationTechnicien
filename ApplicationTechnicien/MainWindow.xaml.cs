@@ -29,7 +29,7 @@ namespace ApplicationTechnicien
 
             InitializeComponent();
             fenetrePrincipal.DataContext = new ViewModel.viewModelTechnicien(thedaoavis, thedaoclient, thedaoobstacle, thedaoplacement_Obst, thedaoreservation, thedaosalle, thedaotheme, thedaotransaction, thedaoutilisateur, thedaoville);
-            
+
             //AjouterReservation.DataContext = new ViewModel.viewModelAjouterReservation(thedaoclient, thedaoobstacle,thedaoplacement_Obst,thedaoreservation,thedaosalle,thedaotheme,thedaoutilisateur,thedaoville);
             AjouterReservation.DataContext = new ViewModel.viewModelTechnicien(thedaoavis, thedaoclient, thedaoobstacle, thedaoplacement_Obst, thedaoreservation, thedaosalle, thedaotheme, thedaotransaction, thedaoutilisateur, thedaoville);
         }
@@ -44,13 +44,11 @@ namespace ApplicationTechnicien
             ListSalleReservation.Visibility = Visibility.Hidden;
             AjouterHeureReservation.Visibility = Visibility.Hidden;
             TxbMinuteReservation.Visibility = Visibility.Hidden;
-            CasDerreur.Visibility = Visibility.Hidden;
-            BtnAjouterHorraire.Visibility = Visibility.Hidden;
             BtnSuivantVersObstacle.Visibility = Visibility.Hidden;
 
             LblListeObstacle.Visibility = Visibility.Visible;
             LtbListeObstacle.Visibility = Visibility.Visible;
-            TxbObstacle.Visibility = Visibility.Visible; 
+            TxbObstacle.Visibility = Visibility.Visible;
             BtnObstacleAjouter.Visibility = Visibility.Visible;
             LblObstacleAjouter.Visibility = Visibility.Visible;
             LtbObstacleAjouter.Visibility = Visibility.Visible;
@@ -60,6 +58,8 @@ namespace ApplicationTechnicien
             BtnRetourVersHorraire.Visibility = Visibility.Visible;
             TxbRechercheObstacle.Visibility = Visibility.Visible;
             LblObstacle.Visibility = Visibility.Visible;
+            LblTheme.Visibility = Visibility.Visible;
+            ListThemePourObstacle.Visibility = Visibility.Visible;
         }
 
         private void BtnObstacleSuivant_Click(object sender, RoutedEventArgs e)
@@ -73,11 +73,11 @@ namespace ApplicationTechnicien
             LtbObstacleAjouter.Visibility = Visibility.Hidden;
             BtnObstacleSupprimer.Visibility = Visibility.Hidden;
             BtnObstacleSuivant.Visibility = Visibility.Hidden;
-            BtnAjouterHorraire.Visibility = Visibility.Hidden;
-            CasDerreur.Visibility = Visibility.Hidden;
             BtnRetourVersHorraire.Visibility = Visibility.Hidden;
             TxbRechercheObstacle.Visibility = Visibility.Hidden;
             LblObstacle.Visibility = Visibility.Hidden;
+            LblTheme.Visibility = Visibility.Hidden;
+            ListThemePourObstacle.Visibility = Visibility.Hidden;
 
 
             LblListeClient.Visibility = Visibility.Visible;
@@ -120,11 +120,12 @@ namespace ApplicationTechnicien
             LtbObstacleAjouter.Visibility = Visibility.Visible;
             BtnObstacleSupprimer.Visibility = Visibility.Visible;
             BtnObstacleSuivant.Visibility = Visibility.Visible;
-            CasDerreur.Visibility = Visibility.Visible;
             BtnRetourVersHorraire.Visibility = Visibility.Visible;
             LblObstacle.Visibility = Visibility.Visible;
             TxbRechercheObstacle.Visibility = Visibility.Visible;
             BtnRechercheObstacle.Visibility = Visibility.Visible;
+            LblTheme.Visibility = Visibility.Visible;
+            ListThemePourObstacle.Visibility = Visibility.Visible;
         }
 
         private void BtnRetourVersHorraire_Click(object sender, RoutedEventArgs e)
@@ -137,10 +138,11 @@ namespace ApplicationTechnicien
             LtbObstacleAjouter.Visibility = Visibility.Hidden;
             BtnObstacleSupprimer.Visibility = Visibility.Hidden;
             BtnObstacleSuivant.Visibility = Visibility.Hidden;
-            CasDerreur.Visibility = Visibility.Hidden;
             BtnRetourVersHorraire.Visibility = Visibility.Hidden;
             LblObstacle.Visibility = Visibility.Hidden;
             TxbRechercheObstacle.Visibility = Visibility.Hidden;
+            LblTheme.Visibility = Visibility.Hidden;
+            ListThemePourObstacle.Visibility = Visibility.Hidden;
 
 
             AjouterDateReservation.Visibility = Visibility.Visible;
@@ -151,8 +153,6 @@ namespace ApplicationTechnicien
             ListSalleReservation.Visibility = Visibility.Visible;
             AjouterHeureReservation.Visibility = Visibility.Visible;
             TxbMinuteReservation.Visibility = Visibility.Visible;
-            CasDerreur.Visibility = Visibility.Visible;
-            BtnAjouterHorraire.Visibility = Visibility.Visible;
             BtnSuivantVersObstacle.Visibility = Visibility.Visible;
         }
     }
