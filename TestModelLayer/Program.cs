@@ -13,7 +13,19 @@ namespace TestModelLayer
 
         static void Main(string[] args)
         {
-            Console.WriteLine("test");
+
+            Dbal myDbal = new Dbal("Escp_Game", "root", "", "localhost");
+
+            Client myCLient = new Client();
+
+            DaoClient theDaoClient = new DaoClient(myDbal);
+            Console.WriteLine(theDaoClient.SelectById(1));
+
+            DaoVille theDaoVille = new DaoVille(myDbal);
+            Ville myVille = new Ville(1, "Paris");
+            theDaoVille.Insert(myVille);
+
+
             Console.ReadLine();
         }
     }
