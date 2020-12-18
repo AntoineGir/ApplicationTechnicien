@@ -358,7 +358,7 @@ namespace ApplicationTechnicien.ViewModel
                     this.buttonSupprimerReservation = new RelayCommand(() => SupprimerReservation(), () => true);
                 }
                 return this.buttonSupprimerReservation;
-            }
+            }   
         }
 
         public ICommand BtnRechercherObstacle
