@@ -70,5 +70,11 @@ namespace ModelLayer.Data
             string query = "Placement_obstacle where id= " + unPlacement_obs.Num_placement + ";";
             this.thedbal.Delete(query);
         }
+
+        public void DeleteAvecIdReservation(Reservation uneReservation)
+        {
+            string query = "Placement_obstacle where reservation= " + uneReservation.Id + ";";
+            this.thedbal.Delete(query);
+        }
     }
 }

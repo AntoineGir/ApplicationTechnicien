@@ -53,6 +53,7 @@ namespace ApplicationTechnicien.ViewModel
         public string chercherObstacle;
         public string txtPrenomClientPourInformation;
         public string txtNomClientPourInformation;
+        
 
 
 
@@ -124,6 +125,19 @@ namespace ApplicationTechnicien.ViewModel
                     OnPropertyChanged("SelectedSalle");
                     OnPropertyChanged("ListReservation");
                     RefreshListeReservation();
+                }
+            }
+        }
+
+        public Reservation SelectedReservation
+        {
+            get => selectedReservation;
+            set
+            {
+                if (selectedReservation != value)
+                {
+                    selectedReservation = value;
+                    OnPropertyChanged("SelectedReservation");
                 }
             }
         }
@@ -397,12 +411,18 @@ namespace ApplicationTechnicien.ViewModel
             }
         }
 
+
+
         public void SupprimerReservation()
         {
             if (selectedReservation != null)
             {
                 Reservation uneReservation = new Reservation();
                 List<Reservation> lesReservation = new List<Reservation>();
+
+                vmDaoObstacle_Obst.DeleteAvecIdReservation(selectedReservation);
+                vmDaoTransaction.DeleteAvecIdReservation(selectedReservation);
+
                 uneReservation = selectedReservation;
                 vmDaoReservation.Delete(uneReservation);
                 lesReservation = vmDaoReservation.SelectAll();

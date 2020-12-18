@@ -79,5 +79,11 @@ namespace ModelLayer.Data
                 uneResevation,
                 unCli);
         }
+
+        public void DeleteAvecIdReservation(Reservation uneReservation)
+        {
+            string query = "Transactions where reservation= " + uneReservation.Id + ";";
+            this.mydbal.Delete(query);
+        }
     }
 }
