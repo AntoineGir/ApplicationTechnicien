@@ -17,6 +17,7 @@ namespace ModelLayer.Data
     {
         private Dbal mydbal;
         private DaoTheme theDaoTheme;
+        private DaoSalle theDaoSalle;
 
         public DaoTheme(Dbal dbal)
         {
@@ -64,5 +65,7 @@ namespace ModelLayer.Data
             DataRow rowTheme = this.mydbal.SelectById("theme", id);
             return new Theme((int)rowTheme["id"], (string)rowTheme["nom"]);
         }
+
+
     }
 }

@@ -32,6 +32,11 @@ FOREIGN KEY (idLieu) REFERENCES Ville (id),
 FOREIGN KEY (idTheme) REFERENCES Theme (id)
 )ENGINE INNODB;
 
+CREATE table PhotoAvis(
+id int primary key auto_increment,
+photo BLOB
+)ENGINE INNODB;
+
 
 CREATE TABLE Avis(
 id INT Primary Key auto_increment, 
@@ -39,6 +44,8 @@ idClient INT,
 note INT, 
 commentaire VARCHAR(255),
 idTheme INT, 
+idImage INT,
+foreign key (idImage) REFERENCES photoAvis(id),
 FOREIGN KEY (idClient) REFERENCES Clients (id), 
 FOREIGN KEY (idTheme) REFERENCES Theme (id)
 )ENGINE INNODB;
@@ -121,9 +128,9 @@ insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALU
 insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (2, 'cadena numérique',"image.jpg", "pjpjpjpjpjpjpjpj", 5,35,2 );
 insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (3, 'rébus',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,3 );
 
-insert into Avis VALUES (1,1,5, "Super comme obstacle",1);
-insert into Avis VALUES (2,2,1, "nul nul nul",2);
-insert into Avis VALUES (3,1,3, "en sah, ça va",3);
+insert into Avis VALUES (1,1,5, "Super comme obstacle",1, null);
+insert into Avis VALUES (2,2,1, "nul nul nul",2, null);
+insert into Avis VALUES (3,1,3, "en sah, ça va",3, null);
 
 insert into Ville VALUES (1, "Annecy");
 insert into Ville VALUES (2, "Chamonix");
