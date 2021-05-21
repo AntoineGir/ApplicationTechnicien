@@ -128,24 +128,24 @@ insert into Theme values (3, "Lac d'Annecy"  );
 
 #---Obstacle pour le theme halloween --#
 insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (1, 'puzzle',"image.jpg", "pjpjpjpjpjpjpjpj", 3,12,1 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (2, 'cadena numérique',"image.jpg", "pjpjpjpjpjpjpjpj", 5,35,1 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (3, 'rébus',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,1 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (4, 'citrouille',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,1 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (5, 'lac de lave',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,1 );
+insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (2, 'cadena numérique',"image.jpg", "pjpjpjpjpjpjpjpj", 5,35,2 );
+insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (3, 'rébus',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,3 );
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (4, 'citrouille',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,1 ); --#
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (5, 'lac de lave',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,1 ); --#
 
 #---Obstacle pour le theme noel --#
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (6, 'toboggan',"image.jpg", "pjpjpjpjpjpjpjpj", 3,12,2 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (7, 'bonhomme de neige',"image.jpg", "pjpjpjpjpjpjpjpj", 5,35,2 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (8, 'sapin de noel',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,2 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (9, 'boule de neige',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,2 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (10, 'pere noel',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,2 );
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (6, 'toboggan',"image.jpg", "pjpjpjpjpjpjpjpj", 3,12,2 ); --#
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (7, 'bonhomme de neige',"image.jpg", "pjpjpjpjpjpjpjpj", 5,35,2 ); --#
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (8, 'sapin de noel',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,2 ); --#
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (9, 'boule de neige',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,2 ); --#
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (10, 'pere noel',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,2 ); --#
 
 #---Obstacle pour le theme lac d'annecy --#
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (11, 'cygne',"image.jpg", "pjpjpjpjpjpjpjpj", 3,12,3 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (12, 'marecage',"image.jpg", "pjpjpjpjpjpjpjpj", 5,35,3 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (13, 'profondeur',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,3 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (14, 'riviere',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,3 );
-insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (15, 'saut de l ange',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,3 );
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (11, 'cygne',"image.jpg", "pjpjpjpjpjpjpjpj", 3,12,3 ); --#
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (12, 'marecage',"image.jpg", "pjpjpjpjpjpjpjpj", 5,35,3 ); --#
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (13, 'profondeur',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,3 ); --#
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (14, 'riviere',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,3 ); --#
+#-- insert into Obstacle (id, nom, photo, commentaire,difficulte, prix, theme ) VALUES (15, 'saut de l ange',"image.jpg", "pjpjpjpjpjpjpjpj", 1,5,3 ); --#
 
 
 
